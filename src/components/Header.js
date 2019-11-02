@@ -6,12 +6,9 @@ const Bar = styled.div`
   color: white;
   width: 100%;
   height: 50px;
+  margin-bottom: 10px;
 `
 
 export default () => {
-  return (
-    <div>
-      <Bar>Secret Santa</Bar>
-    </div>
-  )
+  return <Bar>Secret Santa</Bar>
 }

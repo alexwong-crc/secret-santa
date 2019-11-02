@@ -1,7 +1,11 @@
 import React from 'react'
 
 const App = () => {
-  return <div>Secret Santa</div>
+  return (
+    <div>
+      <div>Secret Santa</div>
+    </div>
+  )
 }
 
 export default App

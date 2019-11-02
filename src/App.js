@@ -1,6 +1,7 @@
 import React from 'react'
-export default class App extends React.Component {
-  render() {
-    return <div>Secret Santa</div>
-  }
+
+const App = () => {
+  return <div>Secret Santa</div>
 }
+
+export default App

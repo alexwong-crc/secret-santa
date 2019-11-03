@@ -1,3 +1,5 @@
 # Secret Santa
 
-Collaboration from Alex and Wale
+Using React to create a secret santa app.
+
+Collaboration from Alex and Wale.

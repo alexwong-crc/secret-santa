@@ -1,5 +1,37 @@
+import json
+from random import randrange, shuffle
+
+
+def makeResponse(statusCode, body):
+    return {
+        "statusCode": statusCode,
+        "headers": {"Content-Type": "application/json", "charset": "UTF-8"},
+        "body": body,
+    }
+
+
 def random(event, context):
-    response = {"statusCode": 200, "body": "I love you Rosie!! :)"}
+    requestBody = json.loads(event["body"])
 
-    return response
+    if "names" in requestBody:
+        names = requestBody["names"]
 
+        if len(names) < 3:
+            return makeResponse(500, "Please provide additional names.")
+
+        response = shuffleNames(names)
+
+        return makeResponse(200, json.dumps(response))
+
+    return makeResponse(500, "Unable to find names in the body request.")
+
+
+def shuffleNames(names):
+    shuffle(names)
+    shuffleNames = {}
+    for index in range(len(names)):
+        if index == len(names) - 1:
+            shuffleNames[names[index]] = names[0]
+        else:
+            shuffleNames[names[index]] = names[index + 1]
+    return shuffleNames

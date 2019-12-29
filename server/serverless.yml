@@ -57,21 +57,21 @@ custom:
 #    variable1: value1
 
 # you can add packaging information here
-#package:
-#  include:
-#    - include-me.py
-#    - include-me-dir/**
-#  exclude:
-#    - exclude-me.py
-#    - exclude-me-dir/**
+package:
+  exclude:
+    - src/tests
+    #  include:
+    #    - include-me.py
+    #    - include-me-dir/**
 
 functions:
   randomiser:
     handler: src/randomise.random
     events:
       - http:
-          method: post
+          method: POST
           path: randomise
+          cors: true
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details

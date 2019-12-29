@@ -21,3 +21,6 @@ var/
 
 # Serverless directories
 .serverless
+
+# Python
+__pycache__

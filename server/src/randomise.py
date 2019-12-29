@@ -1,8 +1,9 @@
 import json
-from random import randrange, shuffle
+from random import shuffle
+from typing import List
 
 
-def makeResponse(statusCode, body):
+def makeResponse(statusCode: int, body: str):
     return {
         "statusCode": statusCode,
         "headers": {"Content-Type": "application/json", "charset": "UTF-8"},
@@ -26,7 +27,7 @@ def random(event, context):
     return makeResponse(500, "Unable to find names in the body request.")
 
 
-def shuffleNames(names):
+def shuffleNames(names: List[str]):
     shuffle(names)
     shuffleNames = {}
     for index in range(len(names)):

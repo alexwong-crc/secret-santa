@@ -25,8 +25,7 @@ def random(event, context):
 
         if len(people) < 3:
             return makeResponse(500, "Please provide additional names.")
-        response = shuffleNames(people)
-
+        response = {"people": shuffleNames(people)}
         return makeResponse(200, json.dumps(response))
 
     return makeResponse(500, "Unable to find names in the body request.")

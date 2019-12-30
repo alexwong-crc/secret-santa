@@ -1,11 +1,10 @@
-from typing import List
-from src.randomise import shuffleNames, People
+from src.randomise import shuffleNames, People, random
 from unittest import TestCase
 
 
-class TestShuffle(TestCase):
+class Test_Shuffle(TestCase):
     def setUp(self):
-        people: List[People] = [
+        people = [
             People(name="Alex", email="alex@hotmail.com"),
             People(name="Rosie", email="rosie@hotmail.com"),
             People(name="Frankie", email="frankie@hotmail.com"),
@@ -29,4 +28,3 @@ class TestShuffle(TestCase):
         partyOne.sort()
         partyTwo.sort()
         self.assertListEqual(partyOne, partyTwo)
-

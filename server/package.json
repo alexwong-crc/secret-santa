@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "test": "python3 -m unittest discover -s src/tests -p 'test*.py'"
+    "test": "pipenv run python3 -m unittest discover -s src/tests -p 'test*.py'"
   },
   "devDependencies": {
     "serverless-domain-manager": "^3.3.0"

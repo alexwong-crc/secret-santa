@@ -1,6 +1,6 @@
 import json
 from random import shuffle
-from typing import List
+from typing import List, TypedDict
 
 
 def makeResponse(statusCode: int, body: str):
@@ -11,28 +11,32 @@ def makeResponse(statusCode: int, body: str):
     }
 
 
+class People(TypedDict, total=False):
+    name: str
+    email: str
+    target: str
+
+
 def random(event, context):
     requestBody = json.loads(event["body"])
 
-    if "names" in requestBody:
-        names = requestBody["names"]
+    if "people" in requestBody:
+        people: List[People] = requestBody["people"]
 
-        if len(names) < 3:
+        if len(people) < 3:
             return makeResponse(500, "Please provide additional names.")
-
-        response = shuffleNames(names)
+        response = shuffleNames(people)
 
         return makeResponse(200, json.dumps(response))
 
     return makeResponse(500, "Unable to find names in the body request.")
 
 
-def shuffleNames(names: List[str]):
-    shuffle(names)
-    shuffleNames = {}
-    for index in range(len(names)):
-        if index == len(names) - 1:
-            shuffleNames[names[index]] = names[0]
+def shuffleNames(people: List[People]):
+    shuffle(people)
+    for index in range(len(people)):
+        if index == len(people) - 1:
+            people[index]["target"] = people[0]["name"]
         else:
-            shuffleNames[names[index]] = names[index + 1]
-    return shuffleNames
+            people[index]["target"] = people[index + 1]["name"]
+    return people

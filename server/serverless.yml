@@ -21,7 +21,7 @@ service: secret-santa
 
 provider:
   name: aws
-  runtime: python3.7
+  runtime: python3.8
   region: eu-west-2
 
 plugins:

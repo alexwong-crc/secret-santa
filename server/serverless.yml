@@ -60,6 +60,7 @@ custom:
 package:
   exclude:
     - src/tests
+    - keys.env
     #  include:
     #    - include-me.py
     #    - include-me-dir/**

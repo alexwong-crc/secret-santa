@@ -1,6 +1,9 @@
 # Packages
 node_modules
 
+# Keys
+keys.env
+
 # Distribution / packaging
 .Python
 env/

@@ -1,8 +1,16 @@
 {
   "scripts": {
-    "test": "pipenv run python3 -m unittest discover -s src/tests -p 'test*.py'"
+    "test": "pipenv run python3 -m unittest discover -s src/tests -p 'test*.py'",
+    "deploy": "sls deploy --aws-profile"
   },
   "devDependencies": {
+    "serverless": "^1.59.1",
     "serverless-domain-manager": "^3.3.0"
-  }
+  },
+  "name": "secret-santa",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "",
+  "license": "ISC",
+  "description": ""
 }

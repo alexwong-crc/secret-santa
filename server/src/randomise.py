@@ -2,6 +2,7 @@ import json
 from random import shuffle
 from typing import List, TypedDict
 from src.makeResponse import makeResponse
+from src.sendEmail import send
 
 
 class People(TypedDict, total=False):
@@ -18,8 +19,13 @@ def random(event, context):
 
         if len(people) < 3:
             return makeResponse(500, "Please provide additional names.")
-        response = {"people": shuffleNames(people)}
-        return makeResponse(200, json.dumps(response))
+
+        group = shuffleNames(people)
+
+        for person in group:
+            send(person)
+
+        return makeResponse(200, "Check your email for your secret santa")
 
     return makeResponse(500, "Unable to find names in the body request.")
 

@@ -12,5 +12,8 @@
   "main": "index.js",
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "serverless-python-requirements": "^5.0.1"
+  }
 }

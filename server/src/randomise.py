@@ -1,14 +1,7 @@
 import json
 from random import shuffle
 from typing import List, TypedDict
-
-
-def makeResponse(statusCode: int, body: str):
-    return {
-        "statusCode": statusCode,
-        "headers": {"Content-Type": "application/json", "charset": "UTF-8"},
-        "body": body,
-    }
+from src.makeResponse import makeResponse
 
 
 class People(TypedDict, total=False):

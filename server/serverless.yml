@@ -39,3 +39,27 @@ functions:
           method: POST
           path: randomise
           cors: true
+
+# AWS Resources
+resources:
+  Resources:
+    secretSantaRecords:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: SecretSantaRecords
+        AttributeDefinitions:
+          - AttributeName: UUID
+            AttributeType: S
+          - AttributeName: party
+            AttributeType: S
+        KeySchema:
+          - AttributeName: UUID
+            KeyType: HASH
+        GlobalSecondaryIndexes:
+          - IndexName: partyIndex
+            KeySchema:
+              - AttributeName: party
+                KeyType: HASH
+            Projection:
+              ProjectionType: KEYS_ONLY
+        BillingMode: PAY_PER_REQUEST

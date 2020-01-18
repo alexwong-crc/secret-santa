@@ -9,6 +9,15 @@ provider:
   name: aws
   runtime: python3.8
   region: eu-west-2
+  # IAM Policies
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+      Resource:
+        - Fn::GetAtt: [secretSantaRecords, Arn]
 
 # Additional plugins
 plugins:
@@ -50,7 +59,7 @@ resources:
         AttributeDefinitions:
           - AttributeName: UUID
             AttributeType: S
-          - AttributeName: party
+          - AttributeName: party_name
             AttributeType: S
         KeySchema:
           - AttributeName: UUID
@@ -58,8 +67,8 @@ resources:
         GlobalSecondaryIndexes:
           - IndexName: partyIndex
             KeySchema:
-              - AttributeName: party
+              - AttributeName: party_name
                 KeyType: HASH
             Projection:
-              ProjectionType: KEYS_ONLY
+              ProjectionType: ALL
         BillingMode: PAY_PER_REQUEST

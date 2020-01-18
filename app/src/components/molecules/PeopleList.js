@@ -1,27 +1,27 @@
-import React from 'react'
-import PersonInput from './PersonInput'
+import React from "react";
+import PersonInput from "./PersonInput";
 
 export class PeopleList extends React.Component {
   state = {
     peopleCount: 1
-  }
+  };
 
   increasePeopleCount = () => {
     this.setState(prevState => {
       return {
         peopleCount: prevState.peopleCount + 1
-      }
-    })
-  }
+      };
+    });
+  };
   renderPersonInput = () => {
-    const personInputArray = []
+    const personInputArray = [];
     // return <PersonInput />
     for (let i = 0; i < this.state.peopleCount; i++) {
       //the key below needs to be changed because using numbers as keysis bad practise.
-      personInputArray.push(<PersonInput key={i} />)
+      personInputArray.push(<PersonInput key={i} />);
     }
-    return personInputArray
-  }
+    return personInputArray;
+  };
 
   render() {
     return (
@@ -29,6 +29,6 @@ export class PeopleList extends React.Component {
         {this.renderPersonInput()}
         <button onClick={this.increasePeopleCount}>+</button>
       </React.Fragment>
-    )
+    );
   }
 }

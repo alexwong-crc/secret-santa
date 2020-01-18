@@ -1,6 +1,6 @@
-import React from 'react'
-import Header from './components/Header'
-import {PeopleList} from './components/PeopleList'
+import React from "react";
+import Header from "./components/organisms/Header";
+import { PeopleList } from "./components/molecules/PeopleList";
 
 const App = () => {
   return (
@@ -8,7 +8,7 @@ const App = () => {
       <Header />
       <PeopleList />
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;

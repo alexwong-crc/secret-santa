@@ -1,12 +1,12 @@
 import React from "react";
 import Header from "./components/organisms/Header";
-import { PeopleList } from "./components/molecules/PeopleList";
+import PartyInput from "./components/organisms/PartyInput";
 
 const App = () => {
   return (
     <div>
       <Header />
-      <PeopleList />
+      <PartyInput />
     </div>
   );
 };

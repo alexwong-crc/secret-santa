@@ -24,8 +24,10 @@ export default () => {
               value={formikProps.values.partyName}
               onChange={formikProps.handleChange}
             />
-            <button type="submit">Submit</button>
             <PeopleList formikProps={formikProps} />
+            <div>
+              <button type="submit">Submit</button>
+            </div>
           </form>
         )}
       </Formik>

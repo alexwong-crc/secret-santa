@@ -6,7 +6,7 @@ export const InputField = props => {
     <Container>
       <label htmlFor={props.name + props.id}>{props.label}:</label>
       <input
-        name={props.name + props.id}
+        name={`participants[${props.id}].${props.name}`}
         id={props.name + props.id}
         type={props.type}
         value={props.formikProps[props.name + props.id]}

@@ -41,10 +41,12 @@ def random(event, context):
                 )
                 Logging.log(f"Record created for {person['name']}: {rowUUID}\n")
             except:
-                Logging.log(f"Failed to create record for {person['name']}\n")
+                Logging.log(f"Error: Failed to create record for {person['name']}\n")
 
-        Logging.log("Exiting randomiser lambda.")
-        return Response.make(200, True)
+        Logging.log(f"Success: Secret santa party, {requestBody['partyName']}, created")
+        return Response.make(
+            200, {"partyName": requestBody["partyName"], "people": group}
+        )
 
     Logging.log("Exiting randomiser lambda.")
     return Response.make(500, "Error: Unable to find names in the body request.")

@@ -39,12 +39,14 @@ def random(event, context):
                         "santa_email": {"S": person["email"]},
                     },
                 )
-                Logging.log(f"Record created for {person["name"]}: {rowUUID}\n")
+                Logging.log(f"Record created for {person['name']}: {rowUUID}\n")
             except:
-                Logging.log(f"Failed to create record for {person["name"]}\n")
+                Logging.log(f"Failed to create record for {person['name']}\n")
 
+        Logging.log("Exiting randomiser lambda.")
         return Response.make(200, True)
 
+    Logging.log("Exiting randomiser lambda.")
     return Response.make(500, "Error: Unable to find names in the body request.")
 
 

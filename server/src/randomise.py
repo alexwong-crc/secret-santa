@@ -5,6 +5,7 @@ from src.makeResponse import makeResponse
 from src.sendEmail import send
 from uuid import uuid4
 from boto3 import client
+from src.services.Logging import Logging
 
 
 class People(TypedDict, total=False):
@@ -14,6 +15,7 @@ class People(TypedDict, total=False):
 
 
 def random(event, context):
+    Logging.log("Entered randomiser lambda.")
     requestBody = json.loads(event["body"])
     aws = client("dynamodb", "eu-west-2")
 

@@ -28,15 +28,20 @@ def random(event, context):
         group = shuffleNames(people)
 
         for person in group:
-            aws.put_item(
-                TableName="SecretSantaRecords",
-                Item={
-                    "UUID": {"S": str(uuid4())},
-                    "party_name": {"S": requestBody["partyName"]},
-                    "santa_name": {"S": person["name"]},
-                    "santa_email": {"S": person["email"]},
-                },
-            )
+            try:
+                rowUUID = str(uuid4())
+                aws.put_item(
+                    TableName="SecretSantaRecords",
+                    Item={
+                        "UUID": {"S": rowUUID},
+                        "party_name": {"S": requestBody["partyName"]},
+                        "santa_name": {"S": person["name"]},
+                        "santa_email": {"S": person["email"]},
+                    },
+                )
+                Logging.log(f"Record created for {person["name"]}: {rowUUID}\n")
+            except:
+                Logging.log(f"Failed to create record for {person["name"]}\n")
 
         return Response.make(200, True)
 

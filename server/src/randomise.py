@@ -1,11 +1,11 @@
 import json
 from random import shuffle
 from typing import List, TypedDict
-from src.makeResponse import makeResponse
 from src.sendEmail import send
 from uuid import uuid4
 from boto3 import client
 from src.services.Logging import Logging
+from src.services.Response import Response
 
 
 class People(TypedDict, total=False):
@@ -23,7 +23,7 @@ def random(event, context):
         people: List[People] = requestBody["people"]
 
         if len(people) < 3:
-            return makeResponse(500, "Please provide additional names.")
+            return Response.make(500, "Error: Please provide additional names.")
 
         group = shuffleNames(people)
 
@@ -38,9 +38,9 @@ def random(event, context):
                 },
             )
 
-        return makeResponse(200, "Check your email for your secret santa")
+        return Response.make(200, True)
 
-    return makeResponse(500, "Unable to find names in the body request.")
+    return Response.make(500, "Error: Unable to find names in the body request.")
 
 
 def shuffleNames(people: List[People]):

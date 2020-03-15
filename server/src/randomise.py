@@ -52,7 +52,6 @@ def random(event, context):
             200, {"partyName": requestBody["partyName"], "people": group}
         )
 
-    Logger.log("Exiting randomiser lambda.")
     return Respond.make(500, "Error: Unable to find names in the body request.")
 
 

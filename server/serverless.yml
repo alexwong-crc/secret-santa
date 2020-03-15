@@ -49,6 +49,14 @@ functions:
           method: POST
           path: randomise
           cors: true
+  secretsanta:
+    package: {}
+    handler: src/api/email.send
+    events:
+      - http:
+          method: POST
+          path: send
+          cors: true
 
 # AWS Resources
 resources:

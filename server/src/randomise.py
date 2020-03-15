@@ -44,8 +44,8 @@ def random(event, context):
                 )
                 Logger.log(f"Record created for {person['name']}: {rowUUID}\n")
             except Exception as error:
-                Logger.log(f"Error: Failed to create record for {person['name']}\n")
-                Logger.log(error)
+                Logger.error(f"Error: Failed to create record for {person['name']}\n")
+                Logger.error(error)
 
         Logger.log(f"Success: Secret santa party, {requestBody['partyName']}, created")
         return Respond.make(

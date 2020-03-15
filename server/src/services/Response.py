@@ -2,7 +2,7 @@ import json
 
 
 class Response:
-    def make(status: int, body):
+    def make(self, status: int, body):
         return {
             "statusCode": status,
             "headers": {"Content-Type": "application/json", "charset": "UTF-8"},

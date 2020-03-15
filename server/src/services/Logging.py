@@ -1,3 +1,3 @@
 class Logging:
-    def log(text: str):
+    def log(self, text: str):
         print(f"Log: {text}\n")

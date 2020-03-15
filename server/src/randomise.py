@@ -14,8 +14,12 @@ class People(TypedDict, total=False):
     target: str
 
 
+Logger = Logging()
+Respond = Response()
+
+
 def random(event, context):
-    Logging.log("Entered randomiser lambda.")
+    Logger.log("Entered randomiser lambda.")
     requestBody = json.loads(event["body"])
     aws = client("dynamodb", "eu-west-2")
 
@@ -23,7 +27,7 @@ def random(event, context):
         people: List[People] = requestBody["people"]
 
         if len(people) < 3:
-            return Response.make(500, "Error: Please provide additional names.")
+            return Respond.make(500, "Error: Please provide additional names.")
 
         group = shuffleNames(people)
 
@@ -39,17 +43,17 @@ def random(event, context):
                         "santa_email": {"S": person["email"]},
                     },
                 )
-                Logging.log(f"Record created for {person['name']}: {rowUUID}\n")
+                Logger.log(f"Record created for {person['name']}: {rowUUID}\n")
             except:
-                Logging.log(f"Error: Failed to create record for {person['name']}\n")
+                Logger.log(f"Error: Failed to create record for {person['name']}\n")
 
-        Logging.log(f"Success: Secret santa party, {requestBody['partyName']}, created")
-        return Response.make(
+        Logger.log(f"Success: Secret santa party, {requestBody['partyName']}, created")
+        return Respond.make(
             200, {"partyName": requestBody["partyName"], "people": group}
         )
 
-    Logging.log("Exiting randomiser lambda.")
-    return Response.make(500, "Error: Unable to find names in the body request.")
+    Logger.log("Exiting randomiser lambda.")
+    return Respond.make(500, "Error: Unable to find names in the body request.")
 
 
 def shuffleNames(people: List[People]):

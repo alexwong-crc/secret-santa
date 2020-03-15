@@ -42,6 +42,7 @@ package:
 # Define lambda functions below
 functions:
   randomiser: # Lambda name
+    package: {} # This is needed to allow deploy single lambdas - otherwise error: needing artifacts
     handler: src/randomise.random # Path to lambda function
     events: # Define how the lambda will be invoked
       - http:

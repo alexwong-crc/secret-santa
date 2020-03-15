@@ -57,19 +57,38 @@ resources:
       Type: AWS::DynamoDB::Table
       Properties:
         TableName: SecretSantaRecords
-        AttributeDefinitions:
-          - AttributeName: UUID
-            AttributeType: S
-          - AttributeName: party_name
-            AttributeType: S
         KeySchema:
           - AttributeName: UUID
             KeyType: HASH
+        AttributeDefinitions:
+          - AttributeName: UUID
+            AttributeType: S
+          - AttributeName: Participant
+            AttributeType: S
+          - AttributeName: Party
+            AttributeType: S
+          - AttributeName: Email
+            AttributeType: S
         GlobalSecondaryIndexes:
-          - IndexName: partyIndex
+          - IndexName: ParticipantRecords
             KeySchema:
-              - AttributeName: party_name
+              - AttributeName: Participant
                 KeyType: HASH
             Projection:
-              ProjectionType: ALL
+              ProjectionType: INCLUDE
+              NonKeyAttributes: ["Party"]
+          - IndexName: PartyRecords
+            KeySchema:
+              - AttributeName: Party
+                KeyType: HASH
+            Projection:
+              ProjectionType: INCLUDE
+              NonKeyAttributes: ["Participant"]
+          - IndexName: EmailRecords
+            KeySchema:
+              - AttributeName: Email
+                KeyType: HASH
+            Projection:
+              ProjectionType: INCLUDE
+              NonKeyAttributes: ["UUID"]
         BillingMode: PAY_PER_REQUEST

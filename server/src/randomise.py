@@ -3,7 +3,7 @@ from random import shuffle
 from typing import List, TypedDict
 from src.sendEmail import send
 from uuid import uuid4
-from boto3 import client
+from src.services.DyanmoIO import DynamoIO
 from src.services.Logging import Logging
 from src.services.Response import Response
 
@@ -16,12 +16,12 @@ class People(TypedDict, total=False):
 
 Logger = Logging()
 Respond = Response()
+DynamoDB = DynamoIO()
 
 
 def random(event, context):
     Logger.log("Entered randomiser lambda.")
     requestBody = json.loads(event["body"])
-    aws = client("dynamodb", "eu-west-2")
 
     if "people" in requestBody:
         people: List[People] = requestBody["people"]
@@ -34,18 +34,18 @@ def random(event, context):
         for person in group:
             try:
                 rowUUID = str(uuid4())
-                aws.put_item(
-                    TableName="SecretSantaRecords",
-                    Item={
-                        "UUID": {"S": rowUUID},
-                        "party_name": {"S": requestBody["partyName"]},
-                        "santa_name": {"S": person["name"]},
-                        "santa_email": {"S": person["email"]},
-                    },
+                DynamoDB.putItem(
+                    {
+                        "UUID": rowUUID,
+                        "party_name": requestBody["partyName"],
+                        "santa_name": person["name"],
+                        "santa_email": person["email"],
+                    }
                 )
                 Logger.log(f"Record created for {person['name']}: {rowUUID}\n")
-            except:
+            except Exception as error:
                 Logger.log(f"Error: Failed to create record for {person['name']}\n")
+                Logger.log(error)
 
         Logger.log(f"Success: Secret santa party, {requestBody['partyName']}, created")
         return Respond.make(

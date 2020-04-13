@@ -1,5 +1,10 @@
-import React from 'react'
+import React from 'react';
+import Container from '@/atoms/Container';
 
-const App: React.FC = () => <div>Luffy will be the pirate king!</div>
+const App: React.FC = () => (
+  <Container>
+    <div>Luffy will be the pirate king!</div>
+  </Container>
+);
 
-export default App
+export default App;

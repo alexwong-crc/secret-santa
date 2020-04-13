@@ -8,7 +8,13 @@
     "isolatedModules": true,
     "esModuleInterop": true,
     "jsx": "react",
-    "noImplicitAny": true
+    "noImplicitAny": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/components/*": ["src/components/*"],
+      "@/atoms/*": ["src/components/atoms/*"],
+      "@/src/*": ["src/*"]
+    }
   },
   "include": ["src"]
 }

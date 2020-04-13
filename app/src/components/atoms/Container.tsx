@@ -4,7 +4,7 @@ interface IProps {
   children: React.ReactNode;
 }
 
-const Container = (props: IProps) => {
+const Container: React.FC<IProps> = (props: IProps) => {
   return (
     <div>
       Container

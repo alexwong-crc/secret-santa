@@ -10,6 +10,7 @@
     "jsx": "react",
     "noImplicitAny": true,
     "baseUrl": ".",
+    "types": ["react"],
     "paths": {
       "@/components/*": ["src/components/*"],
       "@/atoms/*": ["src/components/atoms/*"],

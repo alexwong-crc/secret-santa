@@ -1,10 +1,11 @@
 import React from 'react';
-import Container from '@/atoms/Container';
+import { RootContainer, GlobalStyle } from '@/components/atoms';
 
 const App: React.FC = () => (
-  <Container>
-    <div>Luffy will be the pirate king!</div>
-  </Container>
+  <>
+    <GlobalStyle />
+    <RootContainer>Welcome to secret santa app</RootContainer>
+  </>
 );
 
 export default App;

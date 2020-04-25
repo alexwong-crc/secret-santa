@@ -13,8 +13,10 @@
     "types": ["react"],
     "paths": {
       "@/components/*": ["src/components/*"],
-      "@/atoms/*": ["src/components/atoms/*"],
-      "@/src/*": ["src/*"]
+      "@/atoms": ["src/components/atoms"],
+      "@/src/*": ["src/*"],
+      "@/styles/*": ["src/styles/*"],
+      "@/types/*": ["src/types/*"]
     }
   },
   "include": ["src/**/*"]

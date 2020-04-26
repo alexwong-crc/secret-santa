@@ -4,17 +4,19 @@ import ColourTheme from '@/styles/ColourTheme';
 
 const Colour = new ColourTheme();
 
-interface IProps {
-  children: React.ReactNode;
-  level?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+type Headers = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+
+interface IStyledHeader {
+  centre: boolean;
+  level: Headers;
 }
 
-const StyledHeader = styled.h1`
+const StyledHeader = styled.h1<IStyledHeader>`
   font-family: 'Satisfy', serif;
-  margin: 0 0 1rem;
+  margin: ${({ centre }): string => (centre ? '0 auto 1rem' : '0 0 1rem')};
   color: ${Colour.getHex('white')};
-  font-size: ${({ as }: { as: string }): string => {
-    switch (as) {
+  font-size: ${({ level }): string => {
+    switch (level) {
       case 'h1':
         return '4rem';
       case 'h2':
@@ -33,8 +35,18 @@ const StyledHeader = styled.h1`
   }};
 `;
 
-const Header: React.FC<IProps> = ({ children, level = 'h1' }: IProps) => {
-  return <StyledHeader as={level}>{children}</StyledHeader>;
+interface IProps {
+  children: React.ReactNode;
+  level?: Headers;
+  centre?: boolean;
+}
+
+const Header: React.FC<IProps> = ({ children, level = 'h1', centre = false }: IProps) => {
+  return (
+    <StyledHeader as={level} level={level} centre={centre}>
+      {children}
+    </StyledHeader>
+  );
 };
 
 export default Header;

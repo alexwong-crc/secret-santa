@@ -9,6 +9,7 @@ const GlobalStyle = createGlobalStyle`
     background-color: ${Colour.getHex('primary')};
     height: 100%;
     width: 100%;
+    font-family: 'Open Sans', sans-serif;
   }
   * {
     box-sizing: border-box;

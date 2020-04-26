@@ -7,6 +7,7 @@ const GridSC = styled.div`
   grid-template-rows: auto;
   column-gap: 1rem;
   row-gap: 1rem;
+  padding: 2rem 0;
 `;
 
 interface IProps {

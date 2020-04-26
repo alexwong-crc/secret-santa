@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import ColourTheme from '@/styles/ColourTheme';
+import { PaletteKeys } from '@/types/styles';
 
 const Colour = new ColourTheme();
 
@@ -9,12 +10,14 @@ type Headers = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 interface IHeaderSC {
   centre: boolean;
   level: Headers;
+  colour: PaletteKeys;
+  margin?: string;
 }
 
 const HeaderSC = styled.h1<IHeaderSC>`
   font-family: 'Satisfy', serif;
-  margin: ${({ centre }): string => (centre ? '0 auto 1rem' : '0 0 1rem')};
-  color: ${Colour.getHex('white')};
+  margin: ${({ centre, margin }): string => (margin ? margin : centre ? '0 auto 1rem' : '0 0 1rem')};
+  color: ${({ colour }): string => Colour.getHex(colour)};
   font-size: ${({ level }): string => {
     switch (level) {
       case 'h1':
@@ -35,15 +38,13 @@ const HeaderSC = styled.h1<IHeaderSC>`
   }};
 `;
 
-interface IProps {
+interface IProps extends Partial<IHeaderSC> {
   children: React.ReactNode;
-  level?: Headers;
-  centre?: boolean;
 }
 
-const Header: React.FC<IProps> = ({ children, level = 'h1', centre = false }: IProps) => {
+const Header: React.FC<IProps> = ({ children, level = 'h1', centre = false, colour = 'white', margin }: IProps) => {
   return (
-    <HeaderSC as={level} level={level} centre={centre}>
+    <HeaderSC as={level} level={level} centre={centre} colour={colour} margin={margin}>
       {children}
     </HeaderSC>
   );

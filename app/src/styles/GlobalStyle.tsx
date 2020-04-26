@@ -6,10 +6,12 @@ const Colour = new ColourTheme();
 const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
-    box-sizing: border-box;
     background-color: ${Colour.getHex('primary')};
     height: 100%;
     width: 100%;
+  }
+  * {
+    box-sizing: border-box;
   }
 `;
 

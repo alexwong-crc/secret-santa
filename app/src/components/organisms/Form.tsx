@@ -1,5 +1,7 @@
 import React from 'react';
-import { Form as FormikForm, Field, FormikProps } from 'formik';
+import { Grid } from '@/atoms';
+import { Person, FormHeaders } from '@/molecules';
+import { Form as FormikForm, FormikProps } from 'formik';
 import { IFormik } from '@/types/form';
 
 interface IForm {
@@ -10,7 +12,10 @@ const Form: React.FC<IForm> = (props: IForm) => {
   return (
     <>
       <FormikForm>
-        <Field name="name" />
+        <Grid>
+          <FormHeaders />
+          <Person />
+        </Grid>
         <button type="submit">Submit</button>
       </FormikForm>
     </>

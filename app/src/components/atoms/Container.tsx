@@ -4,9 +4,10 @@ import ColourTheme from '@/styles/ColourTheme';
 
 const Colour = new ColourTheme();
 
-const StyledContainer = styled.div`
+const ContainerSC = styled.div`
   border: 3px ${Colour.getHex('white')} solid;
   display: flex;
+  flex-flow: column;
   width: 60%;
   margin: 10rem auto;
   padding: 3rem;
@@ -19,7 +20,7 @@ interface IProps {
 }
 
 const Container: React.FC<IProps> = ({ children }: IProps) => {
-  return <StyledContainer>{children}</StyledContainer>;
+  return <ContainerSC>{children}</ContainerSC>;
 };
 
 export default Container;

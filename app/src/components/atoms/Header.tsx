@@ -6,12 +6,12 @@ const Colour = new ColourTheme();
 
 type Headers = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 
-interface IStyledHeader {
+interface IHeaderSC {
   centre: boolean;
   level: Headers;
 }
 
-const StyledHeader = styled.h1<IStyledHeader>`
+const HeaderSC = styled.h1<IHeaderSC>`
   font-family: 'Satisfy', serif;
   margin: ${({ centre }): string => (centre ? '0 auto 1rem' : '0 0 1rem')};
   color: ${Colour.getHex('white')};
@@ -43,9 +43,9 @@ interface IProps {
 
 const Header: React.FC<IProps> = ({ children, level = 'h1', centre = false }: IProps) => {
   return (
-    <StyledHeader as={level} level={level} centre={centre}>
+    <HeaderSC as={level} level={level} centre={centre}>
       {children}
-    </StyledHeader>
+    </HeaderSC>
   );
 };
 

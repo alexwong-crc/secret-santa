@@ -6,7 +6,7 @@ const App: React.FC = () => (
   <>
     <GlobalStyle />
     <Container>
-      <Header>Welcome to secret santa app</Header>
+      <Header>Secret Santa</Header>
     </Container>
   </>
 );

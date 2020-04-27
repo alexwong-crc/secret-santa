@@ -1,5 +1,5 @@
 import React from 'react';
-import { Cell, Input } from '@/atoms';
+import { Cell, Input, Header } from '@/atoms';
 import { Field } from 'formik';
 
 interface IProps {
@@ -10,7 +10,11 @@ interface IProps {
 const Person: React.FC<IProps> = ({ personId, index }: IProps) => {
   return (
     <>
-      <Cell column="number">{index + 1}</Cell>
+      <Cell column="number">
+        <Header level="h6" colour="white" margin="0">
+          {index + 1}.
+        </Header>
+      </Cell>
       <Cell column="name">
         <Field name={`${personId}.name`} type="text" as={Input} />
       </Cell>

@@ -5,18 +5,19 @@ import ColourTheme from '@/styles/ColourTheme';
 const Colour = new ColourTheme();
 
 const InputSC = styled.input`
-  padding: 0.5rem 0;
+  padding: 0.5rem 1rem;
   width: 100%;
   background-color: transparent;
   border: none;
   outline: none;
   font-size: 1rem;
   color: ${Colour.getHex('white')};
+  background-color: ${Colour.getRgba('white', 0.1)};
 `;
 
 interface IProps {
-  name: string;
   value: string;
+  name: string;
   id: string;
   className: string;
   placeholder: string;

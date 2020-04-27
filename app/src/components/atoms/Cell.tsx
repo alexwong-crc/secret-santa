@@ -7,6 +7,8 @@ interface ICellSC {
 
 const CellSC = styled.div<ICellSC>`
   grid-column: ${({ column }): string => `${column} / span 1`};
+  display: flex;
+  align-items: center;
 `;
 
 interface IProps extends ICellSC {

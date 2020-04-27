@@ -8,17 +8,21 @@ interface IForm {
   formik: FormikProps<IFormik>;
 }
 
-const Form: React.FC<IForm> = (props: IForm) => {
+interface IState {
+  people: number;
+}
+
+const Form: React.FC<IForm> = ({ formik }: IForm) => {
   return (
-    <>
-      <FormikForm>
-        <Grid>
-          <FormHeaders />
-          <Person />
-        </Grid>
-        <button type="submit">Submit</button>
-      </FormikForm>
-    </>
+    <FormikForm>
+      <Grid>
+        <FormHeaders />
+        {Object.keys(formik.values).map((personId, index) => (
+          <Person key={personId} personId={personId} index={index} />
+        ))}
+      </Grid>
+      <button type="submit">Submit</button>
+    </FormikForm>
   );
 };
 

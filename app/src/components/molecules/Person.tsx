@@ -1,19 +1,21 @@
 import React from 'react';
-import styled from 'styled-components';
 import { Cell, Input } from '@/atoms';
 import { Field } from 'formik';
 
-const PersonSC = styled.div``;
+interface IProps {
+  personId: string;
+  index: number;
+}
 
-const Person = () => {
+const Person: React.FC<IProps> = ({ personId, index }: IProps) => {
   return (
     <>
-      <Cell column="number">number</Cell>
+      <Cell column="number">{index + 1}</Cell>
       <Cell column="name">
-        <Field name="name" placeholder="name" as={Input} />
+        <Field name={`${personId}.name`} type="text" as={Input} />
       </Cell>
       <Cell column="email">
-        <Field name="email" type="email" placeholder="email" as={Input} />
+        <Field name={`${personId}.email`} type="email" as={Input} />
       </Cell>
       <Cell column="validation">validation</Cell>
     </>

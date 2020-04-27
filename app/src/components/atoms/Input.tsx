@@ -9,11 +9,15 @@ const InputSC = styled.input`
   width: 100%;
   background-color: transparent;
   border: none;
+  border-bottom: 2px solid transparent;
   outline: none;
   font-size: 1rem;
   color: ${Colour.getHex('white')};
   background-color: ${Colour.getRgba('white', 0.1)};
   border-radius: 0.4rem;
+  &:focus {
+    border-bottom: 2px solid ${Colour.getHex('action')};
+  }
 `;
 
 interface IProps {

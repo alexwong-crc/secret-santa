@@ -8,8 +8,8 @@ const ContainerSC = styled.div`
   border: 3px ${Colour.getHex('white')} solid;
   display: flex;
   flex-flow: column;
-  width: 60%;
-  margin: 10rem auto;
+  width: 55%;
+  margin: 5rem auto;
   padding: 3rem;
   border-radius: 0.5rem;
   background-color: ${Colour.getRgba('white', 0.1)};

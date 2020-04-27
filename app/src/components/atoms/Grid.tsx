@@ -3,11 +3,11 @@ import styled from 'styled-components';
 
 const GridSC = styled.div`
   display: grid;
-  grid-template-columns: [number] 1rem [name] 1fr [email] 1fr [validation] 0.5fr;
+  grid-template-columns: [number] 1rem [name] 1fr [email] 2fr [validation] 1rem;
   grid-template-rows: auto;
   column-gap: 1rem;
   row-gap: 1rem;
-  padding: 2rem 0;
+  padding: 1rem 0;
 `;
 
 interface IProps {

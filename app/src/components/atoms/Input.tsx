@@ -13,6 +13,7 @@ const InputSC = styled.input`
   font-size: 1rem;
   color: ${Colour.getHex('white')};
   background-color: ${Colour.getRgba('white', 0.1)};
+  border-radius: 0.4rem;
 `;
 
 interface IProps {

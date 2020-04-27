@@ -6,7 +6,15 @@ import { Form } from '@/organisms';
 import GlobalStyle from '@/styles/GlobalStyle';
 import { uuid } from 'uuidv4';
 
-const initialValues: IFormik = { [uuid()]: { name: '', email: '' } };
+const initialValues: IFormik = {
+  people: [
+    {
+      name: '',
+      email: '',
+      uuid: uuid(),
+    },
+  ],
+};
 
 const App: React.FC = () => (
   <>

@@ -1,26 +1,36 @@
 import React from 'react';
 import { Grid } from '@/atoms';
 import { Person, FormHeaders } from '@/molecules';
-import { Form as FormikForm, FormikProps } from 'formik';
+import { Form as FormikForm, FormikProps, FieldArray, FieldArrayRenderProps } from 'formik';
 import { IFormik } from '@/types/form';
+import { uuid } from 'uuidv4';
 
 interface IForm {
   formik: FormikProps<IFormik>;
 }
 
-interface IState {
-  people: number;
-}
-
 const Form: React.FC<IForm> = ({ formik }: IForm) => {
+  console.log(formik);
+  const { values } = formik;
   return (
     <FormikForm>
-      <Grid>
-        <FormHeaders />
-        {Object.keys(formik.values).map((personId, index) => (
-          <Person key={personId} personId={personId} index={index} />
-        ))}
-      </Grid>
+      <FieldArray name="people">
+        {(arrayHelper: FieldArrayRenderProps): React.ReactElement => {
+          return (
+            <>
+              <Grid>
+                <FormHeaders />
+                {values.people.map(({ uuid }, index) => {
+                  return <Person key={uuid} personId={uuid} index={index} />;
+                })}
+              </Grid>
+              <button type="button" onClick={(): void => arrayHelper.push({ uuid: uuid(), name: '', email: '' })}>
+                Add
+              </button>
+            </>
+          );
+        }}
+      </FieldArray>
       <button type="submit">Submit</button>
     </FormikForm>
   );

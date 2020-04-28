@@ -20,6 +20,7 @@
     "@types/react": "^16.9.34",
     "@types/react-dom": "^16.9.6",
     "@types/styled-components": "^5.0.1",
+    "@types/yup": "^0.28.0",
     "@typescript-eslint/eslint-plugin": "^2.27.0",
     "@typescript-eslint/parser": "^2.27.0",
     "babel-loader": "^8.1.0",
@@ -46,6 +47,7 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "styled-components": "^5.1.0",
-    "uuidv4": "^6.0.7"
+    "uuidv4": "^6.0.7",
+    "yup": "^0.28.4"
   }
 }

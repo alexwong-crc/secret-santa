@@ -2,6 +2,7 @@ import React from 'react';
 import { Cell, Input, Header } from '@/atoms';
 import { Field, FormikProps } from 'formik';
 import { IFormikValues } from '@/types/form';
+import IconValidation from './IconValidation';
 
 interface IProps {
   formik: FormikProps<IFormikValues>;
@@ -22,7 +23,9 @@ const Person: React.FC<IProps> = ({ index, formik }: IProps) => {
       <Cell column="email">
         <Field name={`people[${index}].email`} type="email" as={Input} />
       </Cell>
-      <Cell column="validation">validation</Cell>
+      <Cell column="validation">
+        <IconValidation errors={formik.errors?.people?.[index]} touched={formik.touched?.people?.[index]} />
+      </Cell>
     </>
   );
 };

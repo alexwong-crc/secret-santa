@@ -1,13 +1,14 @@
 import React from 'react';
 import { Cell, Input, Header } from '@/atoms';
-import { Field } from 'formik';
+import { Field, FormikProps } from 'formik';
+import { IFormikValues } from '@/types/form';
 
 interface IProps {
-  personId: string;
+  formik: FormikProps<IFormikValues>;
   index: number;
 }
 
-const Person: React.FC<IProps> = ({ personId, index }: IProps) => {
+const Person: React.FC<IProps> = ({ index, formik }: IProps) => {
   return (
     <>
       <Cell column="number">
@@ -16,10 +17,10 @@ const Person: React.FC<IProps> = ({ personId, index }: IProps) => {
         </Header>
       </Cell>
       <Cell column="name">
-        <Field name={`${personId}.name`} type="text" as={Input} />
+        <Field name={`people[${index}].name`} type="text" as={Input} />
       </Cell>
       <Cell column="email">
-        <Field name={`${personId}.email`} type="email" as={Input} />
+        <Field name={`people[${index}].email`} type="email" as={Input} />
       </Cell>
       <Cell column="validation">validation</Cell>
     </>

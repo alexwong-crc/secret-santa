@@ -1,4 +1,4 @@
-export interface IFormik {
+export interface IFormikValues {
   people: IFormikPerson[];
 }
 

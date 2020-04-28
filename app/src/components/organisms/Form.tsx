@@ -2,15 +2,14 @@ import React from 'react';
 import { Grid } from '@/atoms';
 import { Person, FormHeaders } from '@/molecules';
 import { Form as FormikForm, FormikProps, FieldArray, FieldArrayRenderProps } from 'formik';
-import { IFormik } from '@/types/form';
+import { IFormikValues } from '@/types/form';
 import { uuid } from 'uuidv4';
 
 interface IForm {
-  formik: FormikProps<IFormik>;
+  formik: FormikProps<IFormikValues>;
 }
 
 const Form: React.FC<IForm> = ({ formik }: IForm) => {
-  console.log(formik);
   const { values } = formik;
   return (
     <FormikForm>
@@ -21,7 +20,7 @@ const Form: React.FC<IForm> = ({ formik }: IForm) => {
               <Grid>
                 <FormHeaders />
                 {values.people.map(({ uuid }, index) => {
-                  return <Person key={uuid} personId={uuid} index={index} />;
+                  return <Person key={uuid} index={index} formik={formik} />;
                 })}
               </Grid>
               <button type="button" onClick={(): void => arrayHelper.push({ uuid: uuid(), name: '', email: '' })}>

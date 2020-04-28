@@ -28,9 +28,10 @@ interface IProps {
   placeholder: string;
   onChange: () => void;
   type: string;
+  onBlur: () => void;
 }
 
-const Input: React.FC<IProps> = ({ name, value, id, className, placeholder, onChange, type }: IProps) => {
+const Input: React.FC<IProps> = ({ name, value, id, className, placeholder, onChange, onBlur, type }: IProps) => {
   return (
     <InputSC
       name={name}
@@ -40,6 +41,7 @@ const Input: React.FC<IProps> = ({ name, value, id, className, placeholder, onCh
       placeholder={placeholder}
       onChange={onChange}
       type={type}
+      onBlur={onBlur}
     />
   );
 };

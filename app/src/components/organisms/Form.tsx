@@ -1,6 +1,6 @@
 import React from 'react';
 import { Grid } from '@/atoms';
-import { Person, FormHeaders } from '@/molecules';
+import { Person, FormHeaders, AddButton } from '@/molecules';
 import { Form as FormikForm, FormikProps, FieldArray, FieldArrayRenderProps } from 'formik';
 import { IFormikValues } from '@/types/form';
 import { uuid } from 'uuidv4';
@@ -11,6 +11,11 @@ interface IForm {
 
 const Form: React.FC<IForm> = ({ formik }: IForm) => {
   const { values } = formik;
+
+  const addPerson = (arrayHelper: FieldArrayRenderProps) => (): void => {
+    arrayHelper.push({ uuid: uuid(), name: '', email: '' });
+  };
+
   return (
     <FormikForm>
       <FieldArray name="people">
@@ -23,9 +28,7 @@ const Form: React.FC<IForm> = ({ formik }: IForm) => {
                   return <Person key={uuid} index={index} formik={formik} />;
                 })}
               </Grid>
-              <button type="button" onClick={(): void => arrayHelper.push({ uuid: uuid(), name: '', email: '' })}>
-                Add
-              </button>
+              <AddButton onClick={addPerson(arrayHelper)}>Add</AddButton>
             </>
           );
         }}

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Cell, Input, Header } from '@/atoms';
-import { Field, FormikProps } from 'formik';
+import { Field, FormikProps, ErrorMessage } from 'formik';
 import { IFormikValues } from '@/types/form';
 import IconValidation from './IconValidation';
 

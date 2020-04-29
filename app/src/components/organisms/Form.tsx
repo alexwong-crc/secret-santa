@@ -16,6 +16,10 @@ const Form: React.FC<IForm> = ({ formik }: IForm) => {
     arrayHelper.push({ uuid: uuid(), name: '', email: '' });
   };
 
+  const removePerson = (arrayHelper: FieldArrayRenderProps, index: number) => (): void => {
+    arrayHelper.remove(index);
+  };
+
   return (
     <FormikForm>
       <FieldArray name="people">
@@ -25,7 +29,7 @@ const Form: React.FC<IForm> = ({ formik }: IForm) => {
               <Grid>
                 <FormHeaders />
                 {values.people.map(({ uuid }, index) => {
-                  return <Person key={uuid} index={index} formik={formik} />;
+                  return <Person key={uuid} index={index} formik={formik} remove={removePerson(arrayHelper, index)} />;
                 })}
               </Grid>
               <AddButton onClick={addPerson(arrayHelper)}>Add</AddButton>

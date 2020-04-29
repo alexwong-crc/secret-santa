@@ -1,9 +1,9 @@
 import React from 'react';
-import { Cell, Input, Header, Text } from '@/atoms';
+import { Cell, Input, Text } from '@/atoms';
 import { Field, FormikProps } from 'formik';
 import { IFormikValues } from '@/types/form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheckCircle } from '@fortawesome/free-regular-svg-icons';
+import { faCheckCircle, faTrashAlt } from '@fortawesome/free-regular-svg-icons';
 import ColourTheme from '@/styles/ColourTheme';
 
 const Colour = new ColourTheme();
@@ -11,9 +11,10 @@ const Colour = new ColourTheme();
 interface IProps {
   formik: FormikProps<IFormikValues>;
   index: number;
+  remove: () => void;
 }
 
-const Person: React.FC<IProps> = ({ index, formik }: IProps) => {
+const Person: React.FC<IProps> = ({ index, formik, remove }: IProps) => {
   return (
     <>
       <Cell column="number">
@@ -29,6 +30,11 @@ const Person: React.FC<IProps> = ({ index, formik }: IProps) => {
         {!formik.errors?.people?.[index] && formik.touched?.people?.[index] && (
           <FontAwesomeIcon icon={faCheckCircle} color={Colour.getHex('highlight')} />
         )}
+      </Cell>
+      <Cell column="delete">
+        <button type="button" onClick={remove}>
+          <FontAwesomeIcon icon={faTrashAlt} color={Colour.getHex('highlight')} />
+        </button>
       </Cell>
     </>
   );

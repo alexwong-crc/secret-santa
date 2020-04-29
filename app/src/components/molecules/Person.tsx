@@ -1,8 +1,12 @@
 import React from 'react';
 import { Cell, Input, Header } from '@/atoms';
-import { Field, FormikProps, ErrorMessage } from 'formik';
+import { Field, FormikProps } from 'formik';
 import { IFormikValues } from '@/types/form';
-import IconValidation from './IconValidation';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheckCircle } from '@fortawesome/free-regular-svg-icons';
+import ColourTheme from '@/styles/ColourTheme';
+
+const Colour = new ColourTheme();
 
 interface IProps {
   formik: FormikProps<IFormikValues>;
@@ -24,7 +28,9 @@ const Person: React.FC<IProps> = ({ index, formik }: IProps) => {
         <Field name={`people[${index}].email`} type="email" as={Input} />
       </Cell>
       <Cell column="validation">
-        <IconValidation errors={formik.errors?.people?.[index]} touched={formik.touched?.people?.[index]} />
+        {!formik.errors?.people?.[index] && formik.touched?.people?.[index] && (
+          <FontAwesomeIcon icon={faCheckCircle} color={Colour.getHex('highlight')} />
+        )}
       </Cell>
     </>
   );

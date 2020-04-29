@@ -17,6 +17,9 @@ const Container = styled.div`
   > * + * {
     margin-left: 1rem;
   }
+  :focus-within {
+    border-bottom: 2px solid ${Colour.getHex('action')};
+  }
 `;
 
 const InputSC = styled.input`

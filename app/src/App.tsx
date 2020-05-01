@@ -23,8 +23,8 @@ const ValidationSchema = Yup.object().shape({
     .of(
       Yup.object().shape({
         uuid: Yup.string().required(),
-        name: Yup.string().required('Name is required.'),
-        email: Yup.string().email('Invalid email').required('Email is required.'),
+        name: Yup.string().required('Name is required'),
+        email: Yup.string().email('Invalid email').required('Email is required'),
       }),
     ),
 });

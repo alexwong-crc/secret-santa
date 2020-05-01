@@ -16,5 +16,9 @@
   "description": "",
   "dependencies": {
     "serverless-python-requirements": "^5.0.1"
+  },
+  "resolutions": {
+    "debug": "^3.1.0",
+    "yargs-parser": "^18.1.2"
   }
 }

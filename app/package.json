@@ -49,5 +49,8 @@
     "styled-components": "^5.1.0",
     "uuidv4": "^6.0.7",
     "yup": "^0.28.4"
+  },
+  "resolutions": {
+    "yargs-parser": "^18.1.2"
   }
 }

@@ -1,11 +1,10 @@
 import React from 'react';
-import { Cell, Input, Text } from '@/atoms';
+import { Cell, Input, Text, DeleteButton } from '@/atoms';
 import { Field, FormikProps } from 'formik';
 import { IFormikValues } from '@/types/form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle } from '@fortawesome/free-regular-svg-icons';
 import ColourTheme from '@/styles/ColourTheme';
-import DeleteButton from './DeleteButton';
 
 const Colour = new ColourTheme();
 

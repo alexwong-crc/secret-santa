@@ -1,6 +1,6 @@
 import React from 'react';
-import { Grid } from '@/atoms';
-import { Person, FormHeaders, AddButton } from '@/molecules';
+import { Grid, AddButton } from '@/atoms';
+import { Person, FormHeaders } from '@/molecules';
 import { Form as FormikForm, FormikProps, FieldArray, FieldArrayRenderProps } from 'formik';
 import { IFormikValues } from '@/types/form';
 import { uuid } from 'uuidv4';

@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "moduleResolution": "node",
+    "allowJs": true,
+    "noEmit": true,
+    "strict": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "jsx": "react",
+    "noImplicitAny": true,
+    "baseUrl": ".",
+    "types": ["react"],
+    "paths": {
+      "@/components/*": ["src/components/*"],
+      "@/atoms": ["src/components/atoms"],
+      "@/molecules": ["src/components/molecules"],
+      "@/organisms": ["src/components/organisms"],
+      "@/src/*": ["src/*"],
+      "@/styles/*": ["src/styles/*"],
+      "@/types/*": ["src/types/*"]
+    }
+  },
+  "include": ["src/**/*"]
+}

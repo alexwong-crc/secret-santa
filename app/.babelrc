@@ -1,0 +1,22 @@
+{
+  "presets": ["@babel/preset-env", "@babel/preset-react", "@babel/preset-typescript"],
+  "plugins": [
+    "babel-plugin-styled-components",
+    "@babel/plugin-proposal-class-properties",
+    "@babel/plugin-proposal-object-rest-spread",
+    [
+      "module-resolver",
+      {
+        "alias": {
+          "@/src": "./src",
+          "@/components": "./src/components",
+          "@/atoms": "./src/components/atoms",
+          "@/molecules": "./src/components/molecules",
+          "@/organisms": "./src/components/organisms",
+          "@/styles": "./src/styles",
+          "@/types": "./src/types"
+        }
+      }
+    ]
+  ]
+}

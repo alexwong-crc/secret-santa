@@ -3,8 +3,9 @@ import { Cell, Input, Text } from '@/atoms';
 import { Field, FormikProps } from 'formik';
 import { IFormikValues } from '@/types/form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheckCircle, faTrashAlt } from '@fortawesome/free-regular-svg-icons';
+import { faCheckCircle } from '@fortawesome/free-regular-svg-icons';
 import ColourTheme from '@/styles/ColourTheme';
+import DeleteButton from './DeleteButton';
 
 const Colour = new ColourTheme();
 
@@ -32,9 +33,7 @@ const Person: React.FC<IProps> = ({ index, formik, remove }: IProps) => {
         )}
       </Cell>
       <Cell column="delete">
-        <button type="button" onClick={remove}>
-          <FontAwesomeIcon icon={faTrashAlt} color={Colour.getHex('highlight')} />
-        </button>
+        <DeleteButton onClick={remove} />
       </Cell>
     </>
   );

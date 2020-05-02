@@ -1,16 +1,24 @@
 version: 2.1
 orbs:
   node: circleci/node@2.0.3
+commands:
+  setup-app:
+    description: Setup app - Install node packages
+    steps:
+      # - run: cd app
+      - node/install-packages:
+          pkg-manager: yarn
+          app-dir: "./app"
+
 jobs:
-  example-run:
+  deploy-app:
     executor:
       name: node/default
     steps:
       - checkout
-      - run:
-          command: ls
+      - setup-app
 workflows:
   version: 2
   flow-one:
     jobs:
-      - example-run
+      - deploy-app

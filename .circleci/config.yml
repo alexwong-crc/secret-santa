@@ -3,9 +3,14 @@ orbs:
   node: circleci/node@2.0.3
 jobs:
   example-run:
+    executor:
+      name: node/default
     steps:
-      - ls
+      - checkout
+      - run:
+          command: ls
 workflows:
+  version: 2
   flow-one:
     jobs:
       - example-run

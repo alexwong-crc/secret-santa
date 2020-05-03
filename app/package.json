@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --mode=production",
+    "clean": "rm -rf dist",
+    "build": "yarn clean && webpack --mode=production && cp -r ./src/assets/favicon ./dist",
     "start": "webpack-dev-server",
     "deploy": "yarn build && aws s3 sync ./dist s3://santa.alexhomingwong.co.uk/ --delete --profile personal"
   },

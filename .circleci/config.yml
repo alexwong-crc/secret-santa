@@ -1,6 +1,8 @@
 version: 2.1
 orbs:
   node: circleci/node@2.0.3
+  python: circleci/python@0.3.0
+  aws-s3: circleci/aws-s3@1.0.15
 
 commands:
   # Setup commands
@@ -13,16 +15,48 @@ commands:
           cache-key: "yarn.lock"
           cache-version: "v1"
           with-cache: true
+  # Build commnands
+  build-app:
+    steps:
+      - run: cd app && yarn build
+      - persist_to_workspace:
+          root: .
+          paths: app/dist
+  # Deploy commands
+  deploy-app:
+    description: Deploy app - Deploy static site to S3
+    steps:
+      - attach_workspace:
+          at: .
+      - aws-s3/sync:
+          arguments: --delete
+          from: "./app/dist"
+          to: "s3://santa.alexhomingwong.co.uk"
 
 jobs:
-  deploy-app:
-    executor: # Specify the env that the job will be running on (docker image etc)
-      name: node/default
+  build-app:
+    executor: node/default
     steps:
       - checkout
       - setup-app
+      - build-app
+  deploy-app:
+    executor: python/default
+    steps:
+      - checkout
+      - deploy-app
+
 workflows:
   version: 2
-  flow-one:
+  deploy:
     jobs:
-      - deploy-app
+      - build-app:
+          filters:
+            branches:
+              only: master
+      - deploy-app:
+          requires:
+            - build-app
+          filters:
+            branches:
+              only: master

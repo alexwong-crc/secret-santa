@@ -1,18 +1,22 @@
 version: 2.1
 orbs:
   node: circleci/node@2.0.3
+
 commands:
+  # Setup commands
   setup-app:
     description: Setup app - Install node packages
     steps:
-      # - run: cd app
       - node/install-packages:
           pkg-manager: yarn
           app-dir: "./app"
+          cache-key: "yarn.lock"
+          cache-version: "v1"
+          with-cache: true
 
 jobs:
   deploy-app:
-    executor:
+    executor: # Specify the env that the job will be running on (docker image etc)
       name: node/default
     steps:
       - checkout

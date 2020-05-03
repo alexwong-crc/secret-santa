@@ -52,6 +52,7 @@
     "yup": "^0.28.4"
   },
   "resolutions": {
-    "yargs-parser": "^18.1.2"
+    "yargs-parser": "^18.1.2",
+    "react-is": "^16.8.0"
   }
 }

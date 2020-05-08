@@ -9,6 +9,7 @@ provider:
   name: aws
   runtime: python3.8
   region: eu-west-2
+  stage: dev
   # IAM Policies
   iamRoleStatements:
     - Effect: Allow
@@ -26,8 +27,14 @@ plugins:
 
 # Custom settings
 custom:
+  stage: ${opt:stage, self:provider.stage}
+  domains:
+    prod: santaapi.alexhomingwong.co.uk
+    staging: staging-santaapi.alexhomingwong.co.uk
+    dev: dev-santaapi.alexhomingwong.co.uk
   customDomain:
-    domainName: secret-santa.alexhomingwong.co.uk
+    domainName: ${self:custom.domains.${self:custom.stage}}
+    stage: "${self:custom.stage}"
     createRoute53Record: true
   # Not sure if below is needed for packaging python modules
   # pythonRequirements:

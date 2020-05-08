@@ -1,7 +1,8 @@
 {
   "scripts": {
     "test": "pipenv run python3 -m unittest discover -s src/tests -p 'test*.py'",
-    "deploy": "sls deploy --aws-profile personal",
+    "deploy:prod": "sls deploy --stage prod --aws-profile personal",
+    "deploy:dev": "sls deploy --stage dev --aws-profile personal",
     "log": "sls logs --aws-profile personal -t -f"
   },
   "devDependencies": {

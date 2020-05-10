@@ -1,0 +1,68 @@
+import json
+from uuid import uuid4
+from random import shuffle
+from src.services.DyanmoIO import DynamoIO
+from src.services.Response import Response
+
+
+def handler(event, context):
+    body = json.loads(event.get("body"))
+    Respond = Response()
+    Dynamo = DynamoIO()
+
+    # Define uuid for this party
+    partyID = str(uuid4())
+
+    # Create the party object in the table
+    Dynamo.putItem(
+        {
+            "UUID": str(uuid4()),
+            "type": "party",
+            "info": {"dueDate": "Christmas day"},
+            "partyID": partyID,
+            "active": True,
+        }
+    )
+
+    # Shuffle members
+    party = nameLottery(body.get("people"))
+
+    # Write people to table
+    for person in party:
+        row = {
+            "UUID": str(uuid4()),
+            "type": "person",
+            "partyID": partyID,
+            "active": True,
+            "info": {"name": person.get("name"), "giftee": person.get("giftee")},
+        }
+
+        if "email" in person:
+            row["email"] = person["email"]
+
+        if "sms" in person:
+            row["sms"] = person
+
+        Dynamo.putItem(row)
+
+    return Respond.make(200, party)
+
+
+def isOrderRandom(order):
+    for index in range(0, len(order)):
+        if index == order[index]:
+            return False
+    return True
+
+
+def nameLottery(people):
+    order = list(range(0, len(people)))
+    shuffle(order)
+
+    while not isOrderRandom(order):
+        shuffle(order)
+
+    for index in range(0, len(people)):
+        people[index]["giftee"] = people[order[index]].get("name")
+
+    return people

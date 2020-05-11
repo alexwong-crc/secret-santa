@@ -1,4 +1,5 @@
 import json
+import copy
 from uuid import uuid4
 from random import shuffle
 from src.services.DyanmoIO import DynamoIO
@@ -38,10 +39,10 @@ def handler(event, context):
         }
 
         if "email" in person:
-            row["email"] = person["email"]
+            row["email"] = person.get("email")
 
         if "sms" in person:
-            row["sms"] = person
+            row["sms"] = person.get("sms")
 
         Dynamo.putItem(row)
 
@@ -55,7 +56,8 @@ def isOrderRandom(order):
     return True
 
 
-def nameLottery(people):
+def nameLottery(party):
+    people = copy.deepcopy(party)
     order = list(range(0, len(people)))
     shuffle(order)
 
@@ -64,5 +66,4 @@ def nameLottery(people):
 
     for index in range(0, len(people)):
         people[index]["giftee"] = people[order[index]].get("name")
-
     return people

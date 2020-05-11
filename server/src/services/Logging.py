@@ -1,4 +1,4 @@
-class Logging:
+class LoggingClass:
     def log(self, text: str):
         print(f"Log: {text}\n")
 

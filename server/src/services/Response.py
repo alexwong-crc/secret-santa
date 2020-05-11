@@ -1,7 +1,7 @@
 import json
 
 
-class Response:
+class ResponseClass:
     def make(self, status: int, body):
         return {
             "statusCode": status,

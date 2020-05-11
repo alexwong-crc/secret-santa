@@ -9,6 +9,11 @@ provider:
   name: aws
   runtime: python3.8
   region: eu-west-2
+  stage: ${opt.stage, "dev"}
+  stackName: "${self:custom.domains.${self:provider.stage}}"
+  environment:
+    dynamoTableDataLayer: "${self:custom.domains.${self:provider.stage}}-data-layer"
+    sendGridAPIKey: ${ssm:SENDGRID_API_KEY~true}
   # IAM Policies
   iamRoleStatements:
     - Effect: Allow
@@ -26,8 +31,12 @@ plugins:
 
 # Custom settings
 custom:
+  domains:
+    prod: santaapi
+    staging: staging-santaapi
+    dev: dev-santaapi
   customDomain:
-    domainName: secret-santa.alexhomingwong.co.uk
+    domainName: "${self:custom.domains.${self:provider.stage}}.alexhomingwong.co.uk"
     createRoute53Record: true
   # Not sure if below is needed for packaging python modules
   # pythonRequirements:
@@ -41,6 +50,13 @@ package:
 
 # Define lambda functions below
 functions:
+  schedule:
+    package: {}
+    handler: src/api/schedule.handler
+    events:
+      - http:
+          method: POST
+          path: schedule
   randomiser: # Lambda name
     package: {} # This is needed to allow deploy single lambdas - otherwise error: needing artifacts
     handler: src/randomise.random # Path to lambda function
@@ -64,39 +80,11 @@ resources:
     secretSantaRecords:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: SecretSantaRecords
+        TableName: "${self:provider.environment.dynamoTableDataLayer}"
         KeySchema:
           - AttributeName: UUID
             KeyType: HASH
         AttributeDefinitions:
           - AttributeName: UUID
             AttributeType: S
-          - AttributeName: Participant
-            AttributeType: S
-          - AttributeName: Party
-            AttributeType: S
-          - AttributeName: Email
-            AttributeType: S
-        GlobalSecondaryIndexes:
-          - IndexName: ParticipantRecords
-            KeySchema:
-              - AttributeName: Participant
-                KeyType: HASH
-            Projection:
-              ProjectionType: INCLUDE
-              NonKeyAttributes: ["Party"]
-          - IndexName: PartyRecords
-            KeySchema:
-              - AttributeName: Party
-                KeyType: HASH
-            Projection:
-              ProjectionType: INCLUDE
-              NonKeyAttributes: ["Participant"]
-          - IndexName: EmailRecords
-            KeySchema:
-              - AttributeName: Email
-                KeyType: HASH
-            Projection:
-              ProjectionType: INCLUDE
-              NonKeyAttributes: ["UUID"]
         BillingMode: PAY_PER_REQUEST

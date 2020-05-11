@@ -2,14 +2,16 @@ import json
 import copy
 from uuid import uuid4
 from random import shuffle
-from src.services.DyanmoIO import DynamoIO
-from src.services.Response import Response
+from src.services.DyanmoIO import DynamoIOClass
+from src.services.Response import ResponseClass
+from src.services.Email import EmailClass
 
 
 def handler(event, context):
     body = json.loads(event.get("body"))
-    Respond = Response()
-    Dynamo = DynamoIO()
+    Response = ResponseClass()
+    Dynamo = DynamoIOClass()
+    Email = EmailClass()
 
     # Define uuid for this party
     partyID = str(uuid4())
@@ -45,8 +47,9 @@ def handler(event, context):
             row["sms"] = person.get("sms")
 
         Dynamo.putItem(row)
+        res = Email.sendEmail(person)
 
-    return Respond.make(200, party)
+    return Response.make(200, res)
 
 
 def isOrderRandom(order):

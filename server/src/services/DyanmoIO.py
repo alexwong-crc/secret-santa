@@ -3,7 +3,7 @@ import os
 from boto3 import resource
 
 
-class DynamoIO:
+class DynamoIOClass:
     def __init__(self):
         dynamodb = resource("dynamodb")
         self.table = dynamodb.Table(os.getenv("dynamoTableDataLayer"))

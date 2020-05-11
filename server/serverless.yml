@@ -13,6 +13,7 @@ provider:
   stackName: "${self:custom.domains.${self:provider.stage}}"
   environment:
     dynamoTableDataLayer: "${self:custom.domains.${self:provider.stage}}-data-layer"
+    sendGridAPIKey: ${ssm:SENDGRID_API_KEY~true}
   # IAM Policies
   iamRoleStatements:
     - Effect: Allow

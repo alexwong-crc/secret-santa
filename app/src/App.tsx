@@ -1,7 +1,7 @@
 import React from 'react';
 import { Formik, FormikProps } from 'formik';
 import { IFormikValues } from '@/types/form';
-import { Container, Header, Divider } from '@/atoms';
+import { Container, Header } from '@/atoms';
 import { Form } from '@/organisms';
 import GlobalStyle from '@/styles/GlobalStyle';
 import { uuid } from 'uuidv4';
@@ -32,9 +32,10 @@ const ValidationSchema = Yup.object().shape({
 const App: React.FC = () => (
   <>
     <GlobalStyle />
+    <Header underline={true} margin="3rem auto 1rem">
+      Secret Santa
+    </Header>
     <Container>
-      <Header centre>Secret Santa</Header>
-      <Divider />
       <Formik
         onSubmit={(values: IFormikValues): void => console.log(values)}
         initialValues={initialValues}

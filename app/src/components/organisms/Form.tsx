@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Grid, AddButton, SubmitButton } from '@/atoms';
+import { Grid, AddButton, Button, FormPage } from '@/atoms';
 import { Person, FormHeaders } from '@/molecules';
 import { Form as FormikForm, FormikProps, FieldArray, FieldArrayRenderProps } from 'formik';
 import { IFormikValues } from '@/types/form';
 import { uuid } from 'uuidv4';
 
-const Container = styled.div`
+const ButtonContainer = styled.div`
   display: flex;
-  flex-flow: column;
+  justify-content: flex-end;
+  > * + * {
+    margin-left: 1rem;
+  }
 `;
 
 interface IForm {
@@ -16,6 +19,8 @@ interface IForm {
 }
 
 const Form: React.FC<IForm> = ({ formik }: IForm) => {
+  const [pageIndex, setPageIndex] = useState(0);
+  const pageOrder = ['partySetup', 'peopleSetup'];
   const { values } = formik;
 
   const addPerson = (arrayHelper: FieldArrayRenderProps) => (): void => {
@@ -26,9 +31,19 @@ const Form: React.FC<IForm> = ({ formik }: IForm) => {
     arrayHelper.remove(index);
   };
 
+  const nextPage = (): void => setPageIndex(pageIndex + 1);
+
+  const previousPage = (): void => setPageIndex(pageIndex - 1);
+
   return (
     <FormikForm>
-      <Container>
+      <FormPage id="partySetup" currentPage={pageOrder[pageIndex]}>
+        Hi
+        <Button type="button" onClick={nextPage}>
+          Next
+        </Button>
+      </FormPage>
+      <FormPage id="peopleSetup" currentPage={pageOrder[pageIndex]}>
         <FieldArray name="people">
           {(arrayHelper: FieldArrayRenderProps): React.ReactElement => {
             return (
@@ -46,8 +61,13 @@ const Form: React.FC<IForm> = ({ formik }: IForm) => {
             );
           }}
         </FieldArray>
-        <SubmitButton />
-      </Container>
+        <ButtonContainer>
+          <Button type="button" onClick={previousPage} outline>
+            Back
+          </Button>
+          <Button type="submit">Schedule party</Button>
+        </ButtonContainer>
+      </FormPage>
     </FormikForm>
   );
 };

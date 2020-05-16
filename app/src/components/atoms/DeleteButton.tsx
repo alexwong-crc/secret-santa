@@ -23,7 +23,7 @@ interface IProps {
 const DeleteButton: React.FC<IProps> = ({ onClick }: IProps) => {
   return (
     <ButtonSC type="button" onClick={onClick}>
-      <FontAwesomeIcon icon={faTrashAlt} color={Colour.getHex('highlight')} size="2x" />
+      <FontAwesomeIcon icon={faTrashAlt} color={Colour.getHex('error')} size="2x" />
     </ButtonSC>
   );
 };

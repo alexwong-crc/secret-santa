@@ -17,7 +17,7 @@ const initialValues: IFormikValues = {
   ],
   partyName: '',
   partyOwner: '',
-  partyDate: '',
+  partyDate: null,
 };
 
 const ValidationSchema = Yup.object().shape({
@@ -26,13 +26,13 @@ const ValidationSchema = Yup.object().shape({
     .of(
       Yup.object().shape({
         uuid: Yup.string().required(),
-        name: Yup.string().required('Name is required'),
-        email: Yup.string().email('Invalid email').required('Email is required'),
+        name: Yup.string().required('A name is required'),
+        email: Yup.string().email('Invalid email').required('A email is required'),
       }),
     ),
-  partyName: Yup.string().required(),
-  partyOwner: Yup.string().required(),
-  partyDate: Yup.date().required(),
+  partyName: Yup.string().required('A party name is required'),
+  partyOwner: Yup.string().required('Specify a party owner'),
+  partyDate: Yup.date().required('Enter a due date for the party').typeError('Enter a due date for the party'),
 });
 
 const App: React.FC = () => (

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Grid, AddButton, Button, FormPage, Input, DateInput } from '@/atoms';
 import { Person, FormHeaders } from '@/molecules';
 import { Form as FormikForm, FormikProps, FieldArray, FieldArrayRenderProps, Field } from 'formik';
-import { IFormikValues } from '@/types/form';
+import { IFormikValues, FormikValuesKey } from '@/types/form';
 import { uuid } from 'uuidv4';
 
 const ContainerSC = styled.div`
@@ -21,7 +21,7 @@ interface IForm {
 const Form: React.FC<IForm> = ({ formik }: IForm) => {
   const [pageIndex, setPageIndex] = useState(0);
   const pageOrder = ['partySetup', 'peopleSetup'];
-  const { values } = formik;
+  const { values, errors } = formik;
 
   const addPerson = (arrayHelper: FieldArrayRenderProps) => (): void => {
     arrayHelper.push({ uuid: uuid(), name: '', email: '' });
@@ -34,6 +34,16 @@ const Form: React.FC<IForm> = ({ formik }: IForm) => {
   const nextPage = (): void => setPageIndex(pageIndex + 1);
 
   const previousPage = (): void => setPageIndex(pageIndex - 1);
+
+  const areFieldsValid = (keys: FormikValuesKey[]): boolean => {
+    return keys.every((key) => {
+      if (errors[key] || !values[key]) {
+        return false;
+      }
+      return true;
+    });
+  };
+
   return (
     <FormikForm>
       <FormPage id="partySetup" currentPage={pageOrder[pageIndex]}>
@@ -45,9 +55,8 @@ const Form: React.FC<IForm> = ({ formik }: IForm) => {
           as={Input}
           information="This is to inform the recipients who invited them."
         />
-        <Field label="Party Date" name="partyDate" type="number" as={DateInput} />
-        {/* <Button type="button" onClick={nextPage}> */}
-        <Button type="button" onClick={() => console.log(formik.values)}>
+        <Field label="Party Date" name="partyDate" as={DateInput} />
+        <Button type="button" onClick={nextPage} disabled={!areFieldsValid(['partyName', 'partyOwner', 'partyDate'])}>
           Next
         </Button>
       </FormPage>

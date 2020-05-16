@@ -20,17 +20,22 @@ const ButtonSC = styled.button<IButtonSC>`
   :hover {
     cursor: pointer;
   }
+  :disabled {
+    opacity: 0.6;
+    cursor: default;
+  }
 `;
 
 interface IProps extends Partial<IButtonSC> {
   children: React.ReactNode;
   type: 'submit' | 'button';
+  disabled?: boolean;
   onClick?: () => void;
 }
 
-const SubmitButton: React.FC<IProps> = ({ type, children, onClick, outline = false }: IProps) => {
+const SubmitButton: React.FC<IProps> = ({ type, children, onClick, outline = false, disabled = false }: IProps) => {
   return (
-    <ButtonSC type={type} onClick={onClick} outline={outline}>
+    <ButtonSC type={type} onClick={onClick} outline={outline} disabled={disabled}>
       {children}
     </ButtonSC>
   );

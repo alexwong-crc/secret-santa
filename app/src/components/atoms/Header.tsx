@@ -11,6 +11,7 @@ type Headers = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 interface IHeaderSC {
   level: Headers;
   colour: PaletteKeys;
+  underline: boolean;
 }
 
 interface IHeaderWrapperSC {
@@ -25,9 +26,10 @@ const HeaderWrapperSC = styled.div<IHeaderWrapperSC>`
 `;
 
 const HeaderSC = styled.h1<IHeaderSC>`
+  white-space: pre;
   font-family: 'Satisfy', serif;
   display: inline-block;
-  margin: 0;
+  margin: ${({ underline }): string => (underline ? '0' : '0 0 1rem')};
   color: ${({ colour }): string => Colour.getHex(colour)};
   font-size: ${({ level }): string => {
     switch (level) {
@@ -42,7 +44,7 @@ const HeaderSC = styled.h1<IHeaderSC>`
       case 'h5':
         return '1.8rem';
       case 'h6':
-        return '1.5rem';
+        return '1.3rem';
       default:
         return '4rem';
     }
@@ -64,7 +66,7 @@ const Header: React.FC<IProps> = ({
 }: IProps) => {
   return (
     <HeaderWrapperSC centre={centre} margin={margin}>
-      <HeaderSC as={level} level={level} colour={colour}>
+      <HeaderSC as={level} level={level} colour={colour} underline={underline}>
         {children}
         <Divider underline={underline} />
       </HeaderSC>

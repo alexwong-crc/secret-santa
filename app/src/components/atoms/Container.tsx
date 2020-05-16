@@ -9,8 +9,8 @@ const ContainerSC = styled.div`
   display: flex;
   flex-flow: column;
   width: 55%;
-  margin: 0 auto;
-  padding: 3rem;
+  margin: 0 auto 5rem;
+  padding: 2.5rem 3rem;
   border-radius: 0.5rem;
   background-color: ${Colour.getRgba('white', 0.1)};
 `;

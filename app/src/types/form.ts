@@ -1,5 +1,8 @@
 export interface IFormikValues {
   people: IFormikPerson[];
+  partyName: string;
+  partyOwner: string;
+  partyDate: Date | '';
 }
 
 export interface IFormikPerson {

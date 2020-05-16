@@ -1,8 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 import ColourTheme from '@/styles/ColourTheme';
-import { ErrorMessage } from 'formik';
+import { ErrorMessage, useField } from 'formik';
 import IconValidation from './IconValidation';
+import DatePicker from 'react-datepicker';
+
+import 'react-datepicker/dist/react-datepicker.css';
 
 const Colour = new ColourTheme();
 
@@ -13,18 +16,12 @@ interface IContainer {
 
 const Container = styled.div<IContainer>`
   display: flex;
-  background-color: ${Colour.getRgba('white', 0.1)};
-  margin-bottom: ${({ label, information }): string => (label && !information ? '2rem' : '0rem')};
   border-bottom: 2px solid transparent;
-  border-radius: 0.4rem;
-  align-items: center;
+  /* align-items: center; */
+  justify-content: flex-start;
   width: 100%;
-  padding: 0.5rem 1rem;
   > * + * {
     margin-left: 1rem;
-  }
-  :focus-within {
-    border-bottom: 2px solid ${Colour.getHex('action')};
   }
 `;
 
@@ -37,24 +34,29 @@ const LabelSC = styled.label`
 `;
 
 const InputSC = styled.input`
-  width: 100%;
-  background-color: transparent;
+  width: 4rem;
+  text-align: center;
+  background-color: ${Colour.getRgba('white', 0.1)};
   border: none;
   outline: none;
   font-size: 1rem;
   padding: 0;
+  border-radius: 0.4rem;
+  padding: 0.5rem 0;
   color: ${Colour.getHex('white')};
-`;
-
-const IInformationSC = styled.div`
-  color: ${Colour.getHex('white')};
-  font-style: italic;
-  font-size: 0.8rem;
-  margin: 0.5rem 0 2rem;
+  border-bottom: 2px solid transparent;
+  :focus {
+    border-bottom: 2px solid ${Colour.getHex('action')};
+  }
+  ::-webkit-outer-spin-button,
+  ::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
 `;
 
 interface IProps extends Partial<IContainer> {
-  value: string;
+  value: Date;
   name: string;
   id: string;
   className: string;
@@ -64,36 +66,30 @@ interface IProps extends Partial<IContainer> {
   onBlur: () => void;
 }
 
-const Input: React.FC<IProps> = ({
-  name,
-  value,
-  className,
-  placeholder,
-  onChange,
-  onBlur,
-  type,
-  label,
-  information,
-}: IProps) => {
+const today = new Date();
+
+const DateInput: React.FC<IProps> = ({ name, value, onChange, onBlur, label, information }: IProps) => {
+  const [field, meta, helpers] = useField(name);
+  const onDateChange = (event: Date): void => {
+    helpers.setValue(event);
+  };
+
   return (
     <>
       {label ? <LabelSC htmlFor={name}>{label}</LabelSC> : null}
-      <Container label={label} information={information}>
-        <InputSC
-          name={name}
-          value={value}
-          id={name}
-          className={className}
-          placeholder={placeholder}
-          onChange={onChange}
-          type={type}
-          onBlur={onBlur}
+      <Container>
+        <DatePicker
+          minDate={new Date()}
+          placeholderText="dd / mm / yyyy"
+          dateFormat="dd/MM/yyyy"
+          selected={value}
+          onChange={onDateChange}
         />
+
         <ErrorMessage name={name} component={IconValidation} />
       </Container>
-      {information ? <IInformationSC>{information}</IInformationSC> : null}
     </>
   );
 };
 
-export default Input;
+export default DateInput;

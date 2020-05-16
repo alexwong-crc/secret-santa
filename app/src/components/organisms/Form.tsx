@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Grid, AddButton, Button, FormPage } from '@/atoms';
+import { Grid, AddButton, Button, FormPage, Input, DateInput } from '@/atoms';
 import { Person, FormHeaders } from '@/molecules';
-import { Form as FormikForm, FormikProps, FieldArray, FieldArrayRenderProps } from 'formik';
+import { Form as FormikForm, FormikProps, FieldArray, FieldArrayRenderProps, Field } from 'formik';
 import { IFormikValues } from '@/types/form';
 import { uuid } from 'uuidv4';
 
-const ButtonContainer = styled.div`
+const ContainerSC = styled.div`
   display: flex;
   justify-content: flex-end;
   > * + * {
@@ -34,12 +34,20 @@ const Form: React.FC<IForm> = ({ formik }: IForm) => {
   const nextPage = (): void => setPageIndex(pageIndex + 1);
 
   const previousPage = (): void => setPageIndex(pageIndex - 1);
-
   return (
     <FormikForm>
       <FormPage id="partySetup" currentPage={pageOrder[pageIndex]}>
-        Hi
-        <Button type="button" onClick={nextPage}>
+        <Field label="Party Name" name="partyName" type="text" as={Input} />
+        <Field
+          label="Party Owner"
+          name="partyOwner"
+          type="text"
+          as={Input}
+          information="This is to inform the recipients who invited them."
+        />
+        <Field label="Party Date" name="partyDate" type="number" as={DateInput} />
+        {/* <Button type="button" onClick={nextPage}> */}
+        <Button type="button" onClick={() => console.log(formik.values)}>
           Next
         </Button>
       </FormPage>
@@ -61,12 +69,12 @@ const Form: React.FC<IForm> = ({ formik }: IForm) => {
             );
           }}
         </FieldArray>
-        <ButtonContainer>
+        <ContainerSC>
           <Button type="button" onClick={previousPage} outline>
             Back
           </Button>
           <Button type="submit">Schedule party</Button>
-        </ButtonContainer>
+        </ContainerSC>
       </FormPage>
     </FormikForm>
   );

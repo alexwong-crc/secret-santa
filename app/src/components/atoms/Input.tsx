@@ -44,9 +44,12 @@ const InputSC = styled.input`
   font-size: 1rem;
   padding: 0;
   color: ${Colour.getHex('white')};
+  ::placeholder {
+    color: ${Colour.getRgba('white', 0.3)};
+  }
 `;
 
-const IInformationSC = styled.div`
+export const InformationSC = styled.div`
   color: ${Colour.getHex('white')};
   font-style: italic;
   font-size: 0.8rem;
@@ -91,7 +94,7 @@ const Input: React.FC<IProps> = ({
         />
         <ErrorMessage name={name} component={IconValidation} />
       </Container>
-      {information ? <IInformationSC>{information}</IInformationSC> : null}
+      {information ? <InformationSC>{information}</InformationSC> : null}
     </>
   );
 };

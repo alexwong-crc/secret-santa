@@ -29,7 +29,8 @@ const ValidationSchema = Yup.object().shape({
         name: Yup.string().required('A name is required'),
         email: Yup.string().email('Invalid email').required('A email is required'),
       }),
-    ),
+    )
+    .min(3, 'At least 3 people needed for a party'),
   partyName: Yup.string().required('A party name is required'),
   partyOwner: Yup.string().required('Specify a party owner'),
   partyDate: Yup.date().required('Enter a due date for the party').typeError('Enter a due date for the party'),

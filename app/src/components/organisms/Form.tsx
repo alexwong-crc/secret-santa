@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Grid, AddButton, Button, FormPage, Input, DateInput, Container, Header } from '@/atoms';
+import { Grid, AddButton, Button, FormPage, Input, DateInput, Container, Header, InformationSC } from '@/atoms';
 import { Person, FormHeaders } from '@/molecules';
 import { Form as FormikForm, FormikProps, FieldArray, FieldArrayRenderProps, Field } from 'formik';
 import { IFormikValues, FormikValuesKey } from '@/types/form';
@@ -21,7 +21,7 @@ interface IForm {
 const Form: React.FC<IForm> = ({ formik }: IForm) => {
   const [pageIndex, setPageIndex] = useState(0);
   const pageOrder = ['partySetup', 'peopleSetup'];
-  const { values, errors } = formik;
+  const { values, errors, isValid } = formik;
 
   const addPerson = (arrayHelper: FieldArrayRenderProps) => (): void => {
     arrayHelper.push({ uuid: uuid(), name: '', email: '' });
@@ -98,11 +98,14 @@ const Form: React.FC<IForm> = ({ formik }: IForm) => {
                 );
               }}
             </FieldArray>
+            {values.people.length < 3 ? <InformationSC>At least 3 people needed for a party.</InformationSC> : null}
             <ContainerSC>
               <Button type="button" onClick={previousPage} outline>
                 Back
               </Button>
-              <Button type="submit">Schedule party</Button>
+              <Button type="submit" disabled={!isValid}>
+                Schedule party
+              </Button>
             </ContainerSC>
           </FormPage>
         </FormikForm>

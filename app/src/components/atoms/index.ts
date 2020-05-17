@@ -3,7 +3,7 @@ export { default as Header } from './Header';
 export { default as Divider } from './Divider';
 export { default as Grid } from './Grid';
 export { default as Cell } from './Cell';
-export { default as Input } from './Input';
+export { default as Input, InformationSC } from './Input';
 export { default as Text } from './Text';
 export { default as IconValidation } from './IconValidation';
 export { default as DeleteButton } from './DeleteButton';

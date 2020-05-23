@@ -14,7 +14,8 @@
           "@/molecules": "./src/components/molecules",
           "@/organisms": "./src/components/organisms",
           "@/styles": "./src/styles",
-          "@/types": "./src/types"
+          "@/types": "./src/types",
+          "@/services": "./src/services"
         }
       }
     ]

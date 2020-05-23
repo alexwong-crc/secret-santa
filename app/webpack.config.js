@@ -1,33 +1,34 @@
-const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const ForkTSCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
+/* eslint-disable @typescript-eslint/no-var-requires */
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ForkTSCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 module.exports = {
-  entry: "./src/index.tsx",
+  entry: './src/index.tsx',
   output: {
-    path: path.resolve(__dirname, "dist"),
-    filename: "[name]-[contenthash].js",
+    path: path.resolve(__dirname, 'dist'),
+    filename: '[name]-[contenthash].js',
   },
   resolve: {
-    extensions: [".ts", ".tsx", ".js"],
+    extensions: ['.ts', '.tsx', '.js'],
   },
   module: {
     rules: [
-      { test: /\.ts|x$/, loader: "babel-loader", exclude: /node_modules/ },
+      { test: /\.ts|x$/, loader: 'babel-loader', exclude: /node_modules/ },
       { test: /\.css$/, use: ['style-loader', 'css-loader'] },
     ],
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, "src/index.html"),
+      template: path.resolve(__dirname, 'src/index.html'),
     }),
     new ForkTSCheckerWebpackPlugin({
-      tsconfig: path.resolve(__dirname, "tsconfig.json"),
+      tsconfig: path.resolve(__dirname, 'tsconfig.json'),
       async: false,
       checkSyntacticErrors: true,
     }),
   ],
-  devtool: "cheap-eval-source-map",
+  devtool: 'cheap-eval-source-map',
   devServer: {
     port: 3000,
     hot: true,
@@ -40,7 +41,7 @@ module.exports = {
     // This extracts the runtime code from the app's code
     // This has been fixed in the later webpack versions but still considered best practice
     runtimeChunk: 'single',
-    // Splits the node_modules to a seperate file as this changes less often than src code
+    // Splits the node_modules to a separate file as this changes less often than src code
     splitChunks: {
       cacheGroups: {
         vendor: {

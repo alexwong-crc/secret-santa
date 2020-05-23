@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { FormikPages } from '@/types/form';
 
 interface IFormPageSC {
   hidden: boolean;
@@ -12,8 +13,8 @@ const FormPageSC = styled.div<IFormPageSC>`
 
 interface IProps {
   children: React.ReactNode;
-  id: string;
-  currentPage: string;
+  id: FormikPages;
+  currentPage: FormikPages;
 }
 
 const FormPage: React.FC<IProps> = ({ children, id, currentPage }: IProps) => {

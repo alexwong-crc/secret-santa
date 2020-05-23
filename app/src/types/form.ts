@@ -12,3 +12,5 @@ export interface IFormikPerson {
 }
 
 export type FormikValuesKey = keyof IFormikValues;
+
+export type FormikPages = 'partySetup' | 'peopleSetup';

@@ -1,13 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const DividerSC = styled.hr`
+interface IDividerSC {
+  underline: boolean;
+}
+
+const DividerSC = styled.hr<IDividerSC>`
   width: 60%;
-  margin: 0 auto 2rem;
+  margin: 0 auto 0;
+  display: ${({ underline }): string => (underline ? 'block' : 'none')};
 `;
 
-const Divider: React.FC = () => {
-  return <DividerSC />;
+const Divider: React.FC<IDividerSC> = ({ underline }: IDividerSC) => {
+  return <DividerSC underline={underline} />;
 };
 
 export default Divider;

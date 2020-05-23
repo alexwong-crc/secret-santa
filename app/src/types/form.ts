@@ -1,5 +1,8 @@
 export interface IFormikValues {
   people: IFormikPerson[];
+  partyName: string;
+  partyOwner: string;
+  partyDate: Date | null;
 }
 
 export interface IFormikPerson {
@@ -7,3 +10,7 @@ export interface IFormikPerson {
   name: string;
   email: string;
 }
+
+export type FormikValuesKey = keyof IFormikValues;
+
+export type FormikPages = 'partySetup' | 'peopleSetup';

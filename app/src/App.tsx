@@ -1,7 +1,7 @@
 import React from 'react';
 import { Formik, FormikProps } from 'formik';
 import { IFormikValues } from '@/types/form';
-import { Container, Header, Divider } from '@/atoms';
+import { Header } from '@/atoms';
 import { Form } from '@/organisms';
 import GlobalStyle from '@/styles/GlobalStyle';
 import { uuid } from 'uuidv4';
@@ -15,6 +15,9 @@ const initialValues: IFormikValues = {
       uuid: uuid(),
     },
   ],
+  partyName: '',
+  partyOwner: '',
+  partyDate: null,
 };
 
 const ValidationSchema = Yup.object().shape({
@@ -23,18 +26,23 @@ const ValidationSchema = Yup.object().shape({
     .of(
       Yup.object().shape({
         uuid: Yup.string().required(),
-        name: Yup.string().required('Name is required'),
-        email: Yup.string().email('Invalid email').required('Email is required'),
+        name: Yup.string().required('A name is required'),
+        email: Yup.string().email('Invalid email').required('A email is required'),
       }),
-    ),
+    )
+    .min(3, 'At least 3 people needed for a party'),
+  partyName: Yup.string().required('A party name is required'),
+  partyOwner: Yup.string().required('Specify a party owner'),
+  partyDate: Yup.date().required('Enter a due date for the party').typeError('Enter a due date for the party'),
 });
 
-const App: React.FC = () => (
-  <>
-    <GlobalStyle />
-    <Container>
-      <Header centre>Secret Santa</Header>
-      <Divider />
+const App: React.FC = () => {
+  return (
+    <>
+      <GlobalStyle />
+      <Header underline={true} margin="3rem auto 1rem">
+        Secret Santa
+      </Header>
       <Formik
         onSubmit={(values: IFormikValues): void => console.log(values)}
         initialValues={initialValues}
@@ -42,8 +50,8 @@ const App: React.FC = () => (
       >
         {(formikProps: FormikProps<IFormikValues>): React.ReactElement => <Form formik={formikProps} />}
       </Formik>
-    </Container>
-  </>
-);
+    </>
+  );
+};
 
 export default App;

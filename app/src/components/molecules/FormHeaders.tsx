@@ -6,7 +6,7 @@ const Person = () => {
     <>
       <Cell column="name">
         <Header level="h6" colour="highlight" margin="0">
-          Name
+          Member name
         </Header>
       </Cell>
       <Cell column="email">

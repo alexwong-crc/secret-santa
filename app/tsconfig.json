@@ -18,7 +18,8 @@
       "@/organisms": ["src/components/organisms"],
       "@/src/*": ["src/*"],
       "@/styles/*": ["src/styles/*"],
-      "@/types/*": ["src/types/*"]
+      "@/types/*": ["src/types/*"],
+      "@/services/*": ["src/services/*"]
     }
   },
   "include": ["src/**/*"]

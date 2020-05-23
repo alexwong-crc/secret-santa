@@ -1,54 +1,39 @@
-import React from 'react';
-import styled from 'styled-components';
-import { Grid, AddButton, SubmitButton } from '@/atoms';
-import { Person, FormHeaders } from '@/molecules';
-import { Form as FormikForm, FormikProps, FieldArray, FieldArrayRenderProps } from 'formik';
-import { IFormikValues } from '@/types/form';
-import { uuid } from 'uuidv4';
-
-const Container = styled.div`
-  display: flex;
-  flex-flow: column;
-`;
+import React, { useState } from 'react';
+import { Container, Header } from '@/atoms';
+import { Form as FormikForm, FormikProps } from 'formik';
+import { IFormikValues, FormikPages } from '@/types/form';
+import { formatDate } from '@/services/format';
+import { PartySetupForm, PeopleSetupForm } from '@/molecules';
 
 interface IForm {
   formik: FormikProps<IFormikValues>;
 }
 
 const Form: React.FC<IForm> = ({ formik }: IForm) => {
+  const [pageIndex, setPageIndex] = useState(0);
+  const pageOrder: FormikPages[] = ['partySetup', 'peopleSetup'];
   const { values } = formik;
 
-  const addPerson = (arrayHelper: FieldArrayRenderProps) => (): void => {
-    arrayHelper.push({ uuid: uuid(), name: '', email: '' });
-  };
+  const nextPage = (): void => setPageIndex(pageIndex + 1);
 
-  const removePerson = (arrayHelper: FieldArrayRenderProps, index: number) => (): void => {
-    arrayHelper.remove(index);
+  const previousPage = (): void => setPageIndex(pageIndex - 1);
+
+  const partyHeaderInfo = (): string => {
+    return values.partyDate ? `${values.partyName} (${formatDate(values.partyDate)})` : values.partyName;
   };
 
   return (
-    <FormikForm>
+    <>
+      <Header margin="centre" level="h6" colour="highlight">
+        {pageIndex === 1 ? partyHeaderInfo() : ' '}
+      </Header>
       <Container>
-        <FieldArray name="people">
-          {(arrayHelper: FieldArrayRenderProps): React.ReactElement => {
-            return (
-              <>
-                <Grid>
-                  <FormHeaders />
-                  {values.people.map(({ uuid }, index) => {
-                    return (
-                      <Person key={uuid} index={index} formik={formik} remove={removePerson(arrayHelper, index)} />
-                    );
-                  })}
-                </Grid>
-                <AddButton onClick={addPerson(arrayHelper)}>Add</AddButton>
-              </>
-            );
-          }}
-        </FieldArray>
-        <SubmitButton />
+        <FormikForm>
+          <PartySetupForm currentPage={pageOrder[pageIndex]} nextPage={nextPage} />
+          <PeopleSetupForm currentPage={pageOrder[pageIndex]} nextPage={nextPage} previousPage={previousPage} />
+        </FormikForm>
       </Container>
-    </FormikForm>
+    </>
   );
 };
 

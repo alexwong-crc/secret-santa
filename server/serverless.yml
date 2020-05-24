@@ -57,22 +57,6 @@ functions:
       - http:
           method: POST
           path: schedule
-  randomiser: # Lambda name
-    package: {} # This is needed to allow deploy single lambdas - otherwise error: needing artifacts
-    handler: src/randomise.random # Path to lambda function
-    events: # Define how the lambda will be invoked
-      - http:
-          method: POST
-          path: randomise
-          cors: true
-  secretsanta:
-    package: {}
-    handler: src/api/email.send
-    events:
-      - http:
-          method: POST
-          path: send
-          cors: true
 
 # AWS Resources
 resources:

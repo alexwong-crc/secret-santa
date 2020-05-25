@@ -1,4 +1,4 @@
-import * as Yup from 'Yup';
+import * as Yup from 'yup';
 import { uuid } from 'uuidv4';
 import { useFormikContext, FormikProps } from 'formik';
 import { FormikValuesKey, IFormikValues } from '@/types/form';

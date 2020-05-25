@@ -1,16 +1,24 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
+import { AppContext } from '@/src/App';
 import { FieldArray, FieldArrayRenderProps, useFormikContext, FormikProps } from 'formik';
 import { FormPage, Button, Grid, AddButton } from '@/atoms';
 import { FormHeaders, Person } from '@/molecules';
 import { FormikPages, IFormikValues } from '@/types/form';
 import { uuid } from 'uuidv4';
+import ColourTheme from '@/styles/ColourTheme';
+
+const Colour = new ColourTheme();
 
 const ContainerSC = styled.div`
   display: flex;
   justify-content: flex-end;
+  margin-top: 1rem;
   > * + * {
     margin-left: 1rem;
+  }
+  span {
+    color: ${Colour.getHex('error')};
   }
 `;
 
@@ -32,6 +40,7 @@ const PeopleSetupForm: React.FC<IPartySetupForm> = ({ currentPage, previousPage 
       arrayHelper.remove(index);
     }
   };
+  const appContext = useContext(AppContext);
 
   return (
     <FormPage id="peopleSetup" currentPage={currentPage}>
@@ -50,6 +59,9 @@ const PeopleSetupForm: React.FC<IPartySetupForm> = ({ currentPage, previousPage 
           );
         }}
       </FieldArray>
+      <ContainerSC>
+        <span>{appContext.error}</span>
+      </ContainerSC>
       <ContainerSC>
         <Button type="button" onClick={previousPage} ghost>
           Back

@@ -7,8 +7,13 @@ import GlobalStyle from '@/styles/GlobalStyle';
 import { validationSchema, initialValues } from '@/services/formValidation';
 import { scheduleAPI } from '@/api/schedule';
 
+export const AppContext = React.createContext({
+  error: '',
+});
+
 const App: React.FC = () => {
   const [formProcess, setFormProcess] = useState('create');
+  const [errorContext, setErrorContext] = useState('');
 
   const submitForm = async (values: IFormikValues, actions: FormikHelpers<IFormikValues>): Promise<void> => {
     if (values.partyDate) {
@@ -19,15 +24,16 @@ const App: React.FC = () => {
       try {
         await scheduleAPI(request);
         actions.resetForm();
+        setErrorContext('');
         setFormProcess('delivering');
       } catch (error) {
-        console.log(error);
+        setErrorContext('An error occurred when sending the emails, please try again.');
       }
     }
   };
 
   return (
-    <>
+    <AppContext.Provider value={{ error: errorContext }}>
       <GlobalStyle />
       <Header underline={true} margin="3rem auto 1rem">
         Secret Santa
@@ -37,7 +43,7 @@ const App: React.FC = () => {
           {(formikProps: FormikProps<IFormikValues>): React.ReactElement => <Form formik={formikProps} />}
         </Formik>
       ) : null}
-    </>
+    </AppContext.Provider>
   );
 };
 

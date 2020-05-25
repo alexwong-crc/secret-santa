@@ -14,7 +14,7 @@ provider:
   environment:
     dynamoTableDataLayer: "${self:custom.domains.${self:provider.stage}}-data-layer"
     sendGridAPIKey: ${ssm:SENDGRID_API_KEY~true}
-    stage: ${opt.stage, "dev"}
+    stage: ${opt:stage, "dev"}
   # IAM Policies
   iamRoleStatements:
     - Effect: Allow

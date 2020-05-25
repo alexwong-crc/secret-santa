@@ -19,6 +19,7 @@ const App: React.FC = () => {
     if (values.partyDate) {
       const request = {
         ...values,
+        people: values.people.map(({ uuid, ...other }) => ({ ...other })),
         partyDate: values.partyDate,
       };
       try {

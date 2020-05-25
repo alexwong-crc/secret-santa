@@ -21,10 +21,10 @@ const Person: React.FC<IProps> = ({ index, remove }: IProps) => {
         <Text fontFamily="'Satisfy', sans-serif">{index + 1}.</Text>
       </Cell>
       <Cell column="name">
-        <Field name={`people[${index}].name`} type="text" as={Input} placeholder="Mr. Santa Claus" />
+        <Field name={`people[${index}].name`} type="text" as={Input} />
       </Cell>
       <Cell column="email">
-        <Field name={`people[${index}].email`} type="email" as={Input} placeholder="santa-claus@northpole.com" />
+        <Field name={`people[${index}].email`} type="email" as={Input} />
       </Cell>
       <Cell column="validation">
         {!errors?.people?.[index] && touched?.people?.[index] && (

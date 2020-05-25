@@ -21,7 +21,7 @@ interface IPartySetupForm {
 }
 
 const PeopleSetupForm: React.FC<IPartySetupForm> = ({ currentPage, previousPage }: IPartySetupForm) => {
-  const { values, isValid }: FormikProps<IFormikValues> = useFormikContext();
+  const { values, isValid, isSubmitting }: FormikProps<IFormikValues> = useFormikContext();
 
   const addPerson = (arrayHelper: FieldArrayRenderProps) => (): void => {
     arrayHelper.push({ uuid: uuid(), name: '', email: '' });
@@ -53,7 +53,7 @@ const PeopleSetupForm: React.FC<IPartySetupForm> = ({ currentPage, previousPage 
         <Button type="button" onClick={previousPage} outline>
           Back
         </Button>
-        <Button type="submit" disabled={!isValid}>
+        <Button type="submit" disabled={!isValid || isSubmitting}>
           Schedule party
         </Button>
       </ContainerSC>

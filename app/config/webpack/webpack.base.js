@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
 const ForkTSCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 module.exports = {
@@ -28,6 +29,10 @@ module.exports = {
       tsconfig: path.resolve(__dirname, '../../tsconfig.json'),
       async: false,
       checkSyntacticErrors: true,
+    }),
+    // Set the environment variables
+    new webpack.DefinePlugin({
+      'process.env.SUBDOMAIN': JSON.stringify(process.env.SUBDOMAIN),
     }),
   ],
   // Split the src code to smaller chunks to allow for optimisation and caching

@@ -1,6 +1,7 @@
 {
   "presets": ["@babel/preset-env", "@babel/preset-react", "@babel/preset-typescript"],
   "plugins": [
+    "@babel/plugin-transform-runtime",
     "babel-plugin-styled-components",
     "@babel/plugin-proposal-class-properties",
     "@babel/plugin-proposal-object-rest-spread",
@@ -15,7 +16,8 @@
           "@/organisms": "./src/components/organisms",
           "@/styles": "./src/styles",
           "@/types": "./src/types",
-          "@/services": "./src/services"
+          "@/services": "./src/services",
+          "@/api": "./src/api"
         }
       }
     ]

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Formik, FormikProps } from 'formik';
 import { IFormikValues } from '@/types/form';
 import { Header } from '@/atoms';
@@ -6,6 +6,7 @@ import { Form } from '@/organisms';
 import GlobalStyle from '@/styles/GlobalStyle';
 import { uuid } from 'uuidv4';
 import * as Yup from 'yup';
+import { scheduleAPI } from '@/api/schedule';
 
 const initialValues: IFormikValues = {
   people: [
@@ -37,19 +38,34 @@ const ValidationSchema = Yup.object().shape({
 });
 
 const App: React.FC = () => {
+  const [formProcess, setFormProcess] = useState('create');
+
+  const submitForm = async (values: IFormikValues): Promise<void> => {
+    if (values.partyDate) {
+      const request = {
+        ...values,
+        partyDate: values.partyDate,
+      };
+      try {
+        const response = await scheduleAPI(request);
+        setFormProcess('delivering');
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
   return (
     <>
       <GlobalStyle />
       <Header underline={true} margin="3rem auto 1rem">
         Secret Santa
       </Header>
-      <Formik
-        onSubmit={(values: IFormikValues): void => console.log(values)}
-        initialValues={initialValues}
-        validationSchema={ValidationSchema}
-      >
-        {(formikProps: FormikProps<IFormikValues>): React.ReactElement => <Form formik={formikProps} />}
-      </Formik>
+      {formProcess === 'create' ? (
+        <Formik onSubmit={submitForm} initialValues={initialValues} validationSchema={ValidationSchema}>
+          {(formikProps: FormikProps<IFormikValues>): React.ReactElement => <Form formik={formikProps} />}
+        </Formik>
+      ) : null}
     </>
   );
 };

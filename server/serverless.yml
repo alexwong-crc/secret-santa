@@ -9,11 +9,12 @@ provider:
   name: aws
   runtime: python3.8
   region: eu-west-2
-  stage: ${opt.stage, "dev"}
+  stage: ${opt:stage, "dev"}
   stackName: "${self:custom.domains.${self:provider.stage}}"
   environment:
     dynamoTableDataLayer: "${self:custom.domains.${self:provider.stage}}-data-layer"
     sendGridAPIKey: ${ssm:SENDGRID_API_KEY~true}
+    stage: ${opt.stage, "dev"}
   # IAM Policies
   iamRoleStatements:
     - Effect: Allow
@@ -31,12 +32,16 @@ plugins:
 
 # Custom settings
 custom:
+  cors:
+    dev: true
+    default: false
   domains:
     prod: santaapi
     staging: staging-santaapi
     dev: dev-santaapi
   customDomain:
     domainName: "${self:custom.domains.${self:provider.stage}}.alexhomingwong.co.uk"
+    stage: ${self:provider.stage}
     createRoute53Record: true
   # Not sure if below is needed for packaging python modules
   # pythonRequirements:
@@ -57,7 +62,7 @@ functions:
       - http:
           method: POST
           path: schedule
-
+          cors: ${self:custom.cors.${self:provider.stage}, self:custom.cors.default}
 # AWS Resources
 resources:
   Resources:

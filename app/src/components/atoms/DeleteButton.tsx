@@ -14,15 +14,20 @@ const ButtonSC = styled.button`
   :hover {
     cursor: pointer;
   }
+  :disabled {
+    opacity: 0.3;
+    cursor: default;
+  }
 `;
 
 interface IProps {
   onClick: () => void;
+  isDisabled: boolean;
 }
 
-const DeleteButton: React.FC<IProps> = ({ onClick }: IProps) => {
+const DeleteButton: React.FC<IProps> = ({ onClick, isDisabled }: IProps) => {
   return (
-    <ButtonSC type="button" onClick={onClick}>
+    <ButtonSC type="button" onClick={onClick} disabled={isDisabled}>
       <FontAwesomeIcon icon={faTrashAlt} color={Colour.getHex('error')} size="2x" />
     </ButtonSC>
   );

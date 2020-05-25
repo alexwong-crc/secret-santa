@@ -14,7 +14,7 @@ interface IProps {
 }
 
 const Person: React.FC<IProps> = ({ index, remove }: IProps) => {
-  const { errors, touched }: FormikProps<IFormikValues> = useFormikContext();
+  const { values, errors, touched }: FormikProps<IFormikValues> = useFormikContext();
   return (
     <>
       <Cell column="number">
@@ -32,7 +32,7 @@ const Person: React.FC<IProps> = ({ index, remove }: IProps) => {
         )}
       </Cell>
       <Cell column="delete">
-        <DeleteButton onClick={remove} />
+        <DeleteButton onClick={remove} isDisabled={values.people.length <= 3} />
       </Cell>
     </>
   );

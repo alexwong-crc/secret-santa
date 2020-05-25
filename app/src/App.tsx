@@ -15,6 +15,16 @@ const initialValues: IFormikValues = {
       email: '',
       uuid: uuid(),
     },
+    {
+      name: '',
+      email: '',
+      uuid: uuid(),
+    },
+    {
+      name: '',
+      email: '',
+      uuid: uuid(),
+    },
   ],
   partyName: '',
   partyOwner: '',

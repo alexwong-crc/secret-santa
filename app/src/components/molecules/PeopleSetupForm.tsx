@@ -28,7 +28,9 @@ const PeopleSetupForm: React.FC<IPartySetupForm> = ({ currentPage, previousPage 
   };
 
   const removePerson = (arrayHelper: FieldArrayRenderProps, index: number) => (): void => {
-    arrayHelper.remove(index);
+    if (arrayHelper.form.values.people.length > 3) {
+      arrayHelper.remove(index);
+    }
   };
 
   return (
@@ -48,7 +50,6 @@ const PeopleSetupForm: React.FC<IPartySetupForm> = ({ currentPage, previousPage 
           );
         }}
       </FieldArray>
-      {values.people.length < 3 ? <InformationSC>At least 3 people needed for a party.</InformationSC> : null}
       <ContainerSC>
         <Button type="button" onClick={previousPage} outline>
           Back

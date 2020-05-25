@@ -1,16 +1,24 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
+import { AppContext } from '@/src/App';
 import { FieldArray, FieldArrayRenderProps, useFormikContext, FormikProps } from 'formik';
-import { FormPage, Button, InformationSC, Grid, AddButton } from '@/atoms';
+import { FormPage, Button, Grid, AddButton } from '@/atoms';
 import { FormHeaders, Person } from '@/molecules';
 import { FormikPages, IFormikValues } from '@/types/form';
 import { uuid } from 'uuidv4';
+import ColourTheme from '@/styles/ColourTheme';
+
+const Colour = new ColourTheme();
 
 const ContainerSC = styled.div`
   display: flex;
   justify-content: flex-end;
+  margin-top: 1rem;
   > * + * {
     margin-left: 1rem;
+  }
+  span {
+    color: ${Colour.getHex('error')};
   }
 `;
 
@@ -21,15 +29,18 @@ interface IPartySetupForm {
 }
 
 const PeopleSetupForm: React.FC<IPartySetupForm> = ({ currentPage, previousPage }: IPartySetupForm) => {
-  const { values, isValid }: FormikProps<IFormikValues> = useFormikContext();
+  const { values, isValid, isSubmitting }: FormikProps<IFormikValues> = useFormikContext();
 
   const addPerson = (arrayHelper: FieldArrayRenderProps) => (): void => {
     arrayHelper.push({ uuid: uuid(), name: '', email: '' });
   };
 
   const removePerson = (arrayHelper: FieldArrayRenderProps, index: number) => (): void => {
-    arrayHelper.remove(index);
+    if (arrayHelper.form.values.people.length > 3) {
+      arrayHelper.remove(index);
+    }
   };
+  const appContext = useContext(AppContext);
 
   return (
     <FormPage id="peopleSetup" currentPage={currentPage}>
@@ -48,12 +59,14 @@ const PeopleSetupForm: React.FC<IPartySetupForm> = ({ currentPage, previousPage 
           );
         }}
       </FieldArray>
-      {values.people.length < 3 ? <InformationSC>At least 3 people needed for a party.</InformationSC> : null}
       <ContainerSC>
-        <Button type="button" onClick={previousPage} outline>
+        <span>{appContext.error}</span>
+      </ContainerSC>
+      <ContainerSC>
+        <Button type="button" onClick={previousPage} ghost>
           Back
         </Button>
-        <Button type="submit" disabled={!isValid}>
+        <Button type="submit" disabled={!isValid || isSubmitting}>
           Schedule party
         </Button>
       </ContainerSC>

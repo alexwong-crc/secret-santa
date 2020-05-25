@@ -5,13 +5,13 @@ import ColourTheme from '@/styles/ColourTheme';
 const Colour = new ColourTheme();
 
 interface IButtonSC {
-  outline: boolean;
+  ghost: boolean;
 }
 
 const ButtonSC = styled.button<IButtonSC>`
-  background-color: ${({ outline }): string => (outline ? 'transparent' : Colour.getHex('action'))};
-  color: ${({ outline }): string => (outline ? Colour.getHex('action') : Colour.getHex('white'))};
-  border: 2px solid ${Colour.getHex('action')};
+  background-color: ${({ ghost }): string => (ghost ? 'transparent' : Colour.getHex('action'))};
+  color: ${({ ghost }): string => (ghost ? Colour.getHex('action') : Colour.getHex('white'))};
+  border: ${({ ghost }): string => (ghost ? 'none' : `2px solid ${Colour.getHex('action')}`)};
   font-size: 1rem;
   padding: 0.5rem 1.5rem;
   border-radius: 0.5rem;
@@ -21,7 +21,7 @@ const ButtonSC = styled.button<IButtonSC>`
     cursor: pointer;
   }
   :disabled {
-    opacity: 0.6;
+    opacity: 0.3;
     cursor: default;
   }
 `;
@@ -33,9 +33,9 @@ interface IProps extends Partial<IButtonSC> {
   onClick?: () => void;
 }
 
-const SubmitButton: React.FC<IProps> = ({ type, children, onClick, outline = false, disabled = false }: IProps) => {
+const SubmitButton: React.FC<IProps> = ({ type, children, onClick, ghost = false, disabled = false }: IProps) => {
   return (
-    <ButtonSC type={type} onClick={onClick} outline={outline} disabled={disabled}>
+    <ButtonSC type={type} onClick={onClick} ghost={ghost} disabled={disabled}>
       {children}
     </ButtonSC>
   );

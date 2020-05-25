@@ -19,8 +19,11 @@
       "@/src/*": ["src/*"],
       "@/styles/*": ["src/styles/*"],
       "@/types/*": ["src/types/*"],
-      "@/services/*": ["src/services/*"]
+      "@/services/*": ["src/services/*"],
+      "@/api": ["src/api"],
+      "@/api/*": ["src/api/*"]
     }
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*", "**/*.js"],
+  "exclude": ["node_modules", "dist"]
 }

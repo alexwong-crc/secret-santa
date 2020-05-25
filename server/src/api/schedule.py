@@ -13,6 +13,12 @@ def handler(event, context):
     Dynamo = DynamoIOClass()
     Email = EmailClass()
 
+    # Split party and people information from request
+    partyConfig = {}
+    for key in body:
+        if key != "people":
+            partyConfig[key] = body[key]
+
     # Define uuid for this party
     partyID = str(uuid4())
 
@@ -21,7 +27,7 @@ def handler(event, context):
         {
             "UUID": str(uuid4()),
             "type": "party",
-            "info": {"dueDate": "Christmas day"},
+            "info": partyConfig,
             "partyID": partyID,
             "active": True,
         }
@@ -30,6 +36,9 @@ def handler(event, context):
     # Shuffle members
     party = nameLottery(body.get("people"))
 
+    # Record email failures
+    fails = []
+
     # Write people to table
     for person in party:
         row = {
@@ -37,7 +46,7 @@ def handler(event, context):
             "type": "person",
             "partyID": partyID,
             "active": True,
-            "info": {"name": person.get("name"), "giftee": person.get("giftee")},
+            "info": person,
         }
 
         if "email" in person:
@@ -46,10 +55,20 @@ def handler(event, context):
         if "sms" in person:
             row["sms"] = person.get("sms")
 
+        sendgridResponse = Email.sendEmail(person)
+        row["status"] = sendgridResponse
         Dynamo.putItem(row)
-        res = Email.sendEmail(person)
 
-    return Response.make(200, res)
+        if sendgridResponse["code"] >= 400:
+            fails.append(person.get("email"))
+
+    if len(fails) == 0:
+        return Response.make(200, {"message": "All emails successfully sent."})
+    else:
+        return Response.make(
+            400,
+            {"message": "Error sending emails.", "count": len(fails), "emails": fails,},
+        )
 
 
 def isOrderRandom(order):

@@ -51,7 +51,7 @@ const PeopleSetupForm: React.FC<IPartySetupForm> = ({ currentPage, previousPage 
         }}
       </FieldArray>
       <ContainerSC>
-        <Button type="button" onClick={previousPage} outline>
+        <Button type="button" onClick={previousPage} ghost>
           Back
         </Button>
         <Button type="submit" disabled={!isValid || isSubmitting}>

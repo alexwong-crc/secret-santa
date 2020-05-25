@@ -15,6 +15,7 @@ const AddButtonSC = styled.button`
   display: flex;
   align-items: center;
   margin: 1rem 0;
+  align-self: flex-start;
   > * + * {
     margin-left: 0.5rem;
   }

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FieldArray, FieldArrayRenderProps, useFormikContext, FormikProps } from 'formik';
-import { FormPage, Button, InformationSC, Grid, AddButton } from '@/atoms';
+import { FormPage, Button, Grid, AddButton } from '@/atoms';
 import { FormHeaders, Person } from '@/molecules';
 import { FormikPages, IFormikValues } from '@/types/form';
 import { uuid } from 'uuidv4';

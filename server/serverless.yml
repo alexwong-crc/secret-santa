@@ -12,6 +12,7 @@ provider:
   stage: ${opt:stage, "dev"}
   stackName: "${self:custom.domains.${self:provider.stage}}"
   environment:
+    domainURL: "${self:custom.cors.${self:provider.stage}, self:custom.cors.default}"
     dynamoTableDataLayer: "${self:custom.domains.${self:provider.stage}}-data-layer"
     sendGridAPIKey: ${ssm:SENDGRID_API_KEY~true}
     stage: ${opt:stage, "dev"}
@@ -33,8 +34,8 @@ plugins:
 # Custom settings
 custom:
   cors:
-    dev: true
-    default: false
+    prod: "https://santa.alexhomingwong.co.uk/*"
+    default: "*"
   domains:
     prod: santaapi
     staging: staging-santaapi
@@ -62,7 +63,16 @@ functions:
       - http:
           method: POST
           path: schedule
-          cors: ${self:custom.cors.${self:provider.stage}, self:custom.cors.default}
+          cors:
+            origin: ${self:custom.cors.${self:provider.stage}, self:custom.cors.default}
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+            allowCredentials: false
 # AWS Resources
 resources:
   Resources:

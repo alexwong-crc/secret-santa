@@ -15,6 +15,15 @@ commands:
           cache-key: "yarn.lock"
           cache-version: "v1"
           with-cache: true
+  setup-server:
+    description: Setup server - Install node packages
+    steps:
+      - node/install-packages:
+          pkg-manager: yarn
+          app-dir: "./server"
+          cache-key: "yarn.lock"
+          cache-version: "v1"
+          with-cache: true
   # Build commnands
   build-app:
     steps:
@@ -45,11 +54,18 @@ jobs:
     steps:
       - checkout
       - deploy-app
+  build-server:
+    executor: node/default
+    steps:
+      - checkout
+      - setup-server
+      - run: cd server && ls
 
 workflows:
   version: 2
   deploy:
     jobs:
+      - build-server
       - build-app:
           filters:
             branches:

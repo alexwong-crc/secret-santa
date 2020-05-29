@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "clean": "rm -rf dist",
-    "build": "cross-env SUBDOMAIN=santaapi yarn clean && webpack --config ./config/webpack/webpack.prod.js --mode=production && cp -r ./src/assets/favicon ./dist",
+    "build": "yarn clean && cross-env SUBDOMAIN=santaapi webpack --config ./config/webpack/webpack.prod.js --mode=production && cp -r ./src/assets/favicon ./dist",
     "start": "cross-env SUBDOMAIN=dev-santaapi webpack-dev-server --config ./config/webpack/webpack.dev.js",
     "deploy": "yarn build && aws s3 sync ./dist s3://santa.alexhomingwong.co.uk/ --delete --profile personal"
   },

@@ -3,6 +3,7 @@ orbs:
   node: circleci/node@2.0.3
   python: circleci/python@0.3.0
   aws-s3: circleci/aws-s3@1.0.15
+  aws-cli: circleci/aws-cli@1.0.0
 
 commands:
   # Setup commands
@@ -15,6 +16,17 @@ commands:
           cache-key: "yarn.lock"
           cache-version: "v1"
           with-cache: true
+  setup-server:
+    description: Setup server - Install node packages and setup AWS profile
+    steps:
+      - node/install-packages:
+          pkg-manager: yarn
+          app-dir: "./server"
+          cache-key: "yarn.lock"
+          cache-version: "v1"
+          with-cache: true
+      - aws-cli/setup:
+          aws-region: AWS_REGION
   # Build commnands
   build-app:
     steps:
@@ -32,6 +44,11 @@ commands:
           arguments: --delete
           from: "./app/dist"
           to: "s3://santa.alexhomingwong.co.uk"
+  deploy-server:
+    description: Deploy server - Deploy lambdas with serverless
+    steps:
+      - run: pip install pipenv
+      - run: cd server && yarn sls deploy --stage prod
 
 jobs:
   build-app:
@@ -45,11 +62,22 @@ jobs:
     steps:
       - checkout
       - deploy-app
+  deploy-server:
+    docker:
+      - image: cimg/python:3.8-node
+    steps:
+      - checkout
+      - setup-server
+      - deploy-server
 
 workflows:
   version: 2
   deploy:
     jobs:
+      - deploy-server:
+          filters:
+            branches:
+              only: master
       - build-app:
           filters:
             branches:

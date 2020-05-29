@@ -17,7 +17,7 @@ commands:
           cache-version: "v1"
           with-cache: true
   setup-server:
-    description: Setup server - Install node packages
+    description: Setup server - Install node packages and setup AWS profile
     steps:
       - node/install-packages:
           pkg-manager: yarn
@@ -38,6 +38,8 @@ commands:
   deploy-app:
     description: Deploy app - Deploy static site to S3
     steps:
+      - attach_workspace:
+          at: .
       - aws-s3/sync:
           arguments: --delete
           from: "./app/dist"

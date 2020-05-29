@@ -34,7 +34,7 @@ plugins:
 # Custom settings
 custom:
   cors:
-    prod: "https://santa.alexhomingwong.co.uk/*"
+    prod: "https://santa.alexhomingwong.co.uk"
     default: "*"
   domains:
     prod: santaapi

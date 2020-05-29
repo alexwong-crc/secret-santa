@@ -75,7 +75,7 @@ workflows:
   deploy:
     jobs:
       - deploy-server:
-          filter:
+          filters:
             branches:
               only: master
       - build-app:

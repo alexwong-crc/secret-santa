@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Header } from '@/atoms';
+import { Container, Header, Title } from '@/atoms';
 import { Form as FormikForm, FormikProps } from 'formik';
 import { IFormikValues, FormikPages } from '@/types/form';
 import { formatDate } from '@/services/format';
@@ -18,15 +18,13 @@ const Form: React.FC<IForm> = ({ formik }: IForm) => {
 
   const previousPage = (): void => setPageIndex(pageIndex - 1);
 
-  const partyHeaderInfo = (): string => {
-    return values.partyDate ? `${values.partyName} (${formatDate(values.partyDate)})` : values.partyName;
-  };
+  const getPartyName = (): string => (pageIndex === 1 ? values.partyName : ' ');
+
+  const getPartyDate = (): string => (values.partyDate && pageIndex === 1 ? formatDate(values.partyDate) : ' ');
 
   return (
     <>
-      <Header margin="centre" level="h6" colour="highlight">
-        {pageIndex === 1 ? partyHeaderInfo() : ' '}
-      </Header>
+      <Title title={getPartyName()} subtitle={getPartyDate()} />
       <Container>
         <FormikForm>
           <PartySetupForm currentPage={pageOrder[pageIndex]} nextPage={nextPage} />

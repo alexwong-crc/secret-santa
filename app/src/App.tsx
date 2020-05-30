@@ -36,9 +36,6 @@ const App: React.FC = () => {
   return (
     <AppContext.Provider value={{ error: errorContext }}>
       <GlobalStyle />
-      <Header underline={true} margin="3rem auto 1rem">
-        Secret Santa
-      </Header>
       {formProcess === 'create' ? (
         <Formik onSubmit={submitForm} initialValues={initialValues} validationSchema={validationSchema}>
           {(formikProps: FormikProps<IFormikValues>): React.ReactElement => <Form formik={formikProps} />}

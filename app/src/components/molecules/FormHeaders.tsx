@@ -1,7 +1,7 @@
 import React from 'react';
 import { Cell, Header } from '@/atoms';
 
-const Person = () => {
+const Person: React.FC = () => {
   return (
     <>
       <Cell column="name">

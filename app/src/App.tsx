@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Formik, FormikProps, FormikHelpers } from 'formik';
 import { IFormikValues } from '@/types/form';
-import { Header } from '@/atoms';
+import { Header, Logo } from '@/atoms';
 import { Form } from '@/organisms';
 import GlobalStyle from '@/styles/GlobalStyle';
 import { validationSchema, initialValues } from '@/services/formValidation';
@@ -44,6 +44,7 @@ const App: React.FC = () => {
           {(formikProps: FormikProps<IFormikValues>): React.ReactElement => <Form formik={formikProps} />}
         </Formik>
       ) : null}
+      <Logo />
     </AppContext.Provider>
   );
 };

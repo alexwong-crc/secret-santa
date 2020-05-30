@@ -55,7 +55,7 @@ def handler(event, context):
         if "sms" in person:
             row["sms"] = person.get("sms")
 
-        sendgridResponse = Email.sendEmail(person)
+        sendgridResponse = Email.sendEmail(person, partyConfig)
         row["status"] = sendgridResponse
         Dynamo.putItem(row)
 

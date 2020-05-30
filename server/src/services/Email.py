@@ -2,6 +2,7 @@ import json
 import os
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
+from src.templates.standard import getStandardTemplate
 
 
 class EmailClass:
@@ -23,12 +24,12 @@ class EmailClass:
             502: "SERVICE NOT AVAILABLE",
         }
 
-    def sendEmail(self, person):
+    def sendEmail(self, person, party):
         message = Mail(
             from_email=f"{self.fromEmailAddress}",
             to_emails=f"{person.get('email')}",
-            subject="Secret Santa",
-            html_content=f"This year, your secret santa is <strong>{person.get('giftee')}</strong>",
+            subject=f"{party.get('partyOwner')} has invited you to join their Secret Santa!",
+            html_content=getStandardTemplate(party, person),
         )
 
         try:

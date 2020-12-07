@@ -57,7 +57,7 @@
     "react-dom": "^16.13.1",
     "styled-components": "^5.1.0",
     "uuidv4": "^6.0.7",
-    "yup": "^0.28.4"
+    "yup": "^0.32.1"
   },
   "resolutions": {
     "yargs-parser": "^18.1.2",

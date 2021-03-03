@@ -6,7 +6,7 @@
     "log:dev": "sls logs --stage dev --aws-profile personal -t -f"
   },
   "devDependencies": {
-    "serverless": "^1.59.1",
+    "serverless": "^2.28.3",
     "serverless-domain-manager": "^3.3.0"
   },
   "name": "secret-santa",

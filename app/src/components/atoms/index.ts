@@ -11,3 +11,4 @@ export { default as AddButton } from './AddButton';
 export { default as Button } from './Button';
 export { default as FormPage } from './FormPage';
 export { default as DateInput } from './DateInput';
+export { default as SuccessMessage } from './SuccessMessage';

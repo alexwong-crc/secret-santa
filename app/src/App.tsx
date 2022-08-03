@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Formik, FormikProps, FormikHelpers } from 'formik';
 import { IFormikValues } from '@/types/form';
-import { Header } from '@/atoms';
+import { Header, SuccessMessage } from '@/atoms';
 import { Form } from '@/organisms';
 import GlobalStyle from '@/styles/GlobalStyle';
 import { validationSchema, initialValues } from '@/services/formValidation';
@@ -39,11 +39,12 @@ const App: React.FC = () => {
       <Header underline={true} margin="3rem auto 1rem">
         Secret Santa
       </Header>
-      {formProcess === 'create' ? (
+      {formProcess === 'create' && (
         <Formik onSubmit={submitForm} initialValues={initialValues} validationSchema={validationSchema}>
           {(formikProps: FormikProps<IFormikValues>): React.ReactElement => <Form formik={formikProps} />}
         </Formik>
-      ) : null}
+      )}
+      {formProcess === 'delivering' && <SuccessMessage />}
     </AppContext.Provider>
   );
 };
